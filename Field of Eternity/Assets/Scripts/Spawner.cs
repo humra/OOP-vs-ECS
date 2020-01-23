@@ -20,5 +20,6 @@ public class Spawner : MonoBehaviour
     {
         GameObject newUnit = Instantiate(spawnableUnits[unitIndex], playerSpawnPoints[activePlayerLaneIndex].transform.position, Quaternion.identity);
         newUnit.GetComponent<UnitAI>().SetTarget(AISpawnPoints[activePlayerLaneIndex].transform);
+        newUnit.GetComponent<UnitAI>().SetPlayerOwned(true);
     }
 }

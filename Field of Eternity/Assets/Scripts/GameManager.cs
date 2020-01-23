@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
-{
-    
-
+{ 
     private Spawner spawner;
 
     private void Start()
@@ -11,6 +9,8 @@ public class GameManager : MonoBehaviour
         spawner = GetComponent<Spawner>();
 
         CheckForMissingComponents();
+
+        ResourceTracker.ResetValues();
     }
 
     private void Update()
@@ -31,6 +31,31 @@ public class GameManager : MonoBehaviour
         {
             spawner.SpawnUnit(0);
         }
+
+        if(ResourceTracker.PlayerHealthCurrent <= 0)
+        {
+            //AIWin();
+        }
+        else if(ResourceTracker.AIHealthCurrent <= 0)
+        {
+            //PlayerWin();
+        }
+
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            Debug.Log("Player health: " + ResourceTracker.PlayerHealthCurrent + " / " + ResourceTracker.PlayerHealthMax);
+            Debug.Log("AI health: " + ResourceTracker.AIHealthCurrent + " / " + ResourceTracker.AIHealthMax);
+        }
+    }
+
+    private void AIWin()
+    {
+        Debug.Log("AI HAS WON!");
+    }
+
+    private void PlayerWin()
+    {
+        Debug.Log("PLAYER HAS WON!");
     }
 
     private void CheckForMissingComponents()

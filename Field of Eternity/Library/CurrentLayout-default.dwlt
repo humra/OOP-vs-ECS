@@ -264,8 +264,8 @@ MonoBehaviour:
     y: 0
     width: 1735
     height: 940
-  m_MinSize: {x: 204, y: 222}
-  m_MaxSize: {x: 4004, y: 4022}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -422,20 +422,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefabs/Units
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Prefabs/Units
   m_LastFoldersGridSize: 96
   m_LastProjectPath: E:\Github\FieldOfEternity\Field of Eternity
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ce2c0000
-    m_LastClickedID: 11470
-    m_ExpandedIDs: 00000000a82c00005c2d000000ca9a3b
+    m_SelectedIDs: 982e0000
+    m_LastClickedID: 11928
+    m_ExpandedIDs: 00000000aa2c00005e2d00008e2d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -463,7 +463,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000a82c00005c2d0000
+    m_ExpandedIDs: 00000000aa2c00005e2d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -488,8 +488,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 4e2c0000
-    m_LastClickedInstanceID: 11342
+    m_SelectedInstanceIDs: 262f0000
+    m_LastClickedInstanceID: 12070
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
@@ -534,7 +534,7 @@ MonoBehaviour:
   m_MinSize: {x: 275, y: 50}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
-    m_Text: Debug
+    m_Text: Inspector
     m_Image: {fileID: -6905738622615590433, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
@@ -588,7 +588,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 76fbffff
+      m_ExpandedIDs: 76fbffff88300000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -648,9 +648,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -26.323193, y: 10.753779, z: -8.523766}
+    m_Target: {x: -40.606846, y: -2.7022247, z: 198.5971}
     speed: 2
-    m_Value: {x: -26.323193, y: 10.753779, z: -8.523766}
+    m_Value: {x: -40.606846, y: -2.7022247, z: 198.5971}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -679,13 +679,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.010649431, y: -0.98505944, z: 0.15826997, w: -0.06630424}
+    m_Target: {x: -0.04499954, y: 0.1130463, z: -0.005126668, w: -0.9925034}
     speed: 2
-    m_Value: {x: -0.010649957, y: -0.98510814, z: 0.1582778, w: -0.066307515}
+    m_Value: {x: -0.04500193, y: 0.113052316, z: -0.0051269406, w: -0.99255615}
   m_Size:
-    m_Target: 195.7732
+    m_Target: 313.23486
     speed: 2
-    m_Value: 195.7732
+    m_Value: 313.23486
   m_Ortho:
     m_Target: 0
     speed: 2
