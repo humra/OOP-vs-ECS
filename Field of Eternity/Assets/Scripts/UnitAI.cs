@@ -6,17 +6,28 @@ public class UnitAI : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private Transform target;
     private bool playerOwned;
+    private Animator animator;
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 
         if(navMeshAgent == null)
         {
             Debug.LogError("UnitAI - NavMeshAgent not found on " + gameObject.name);
             Destroy(gameObject);
         }
+        if(animator == null)
+        {
+            Debug.LogError("UnitAI - Animator not found on " + gameObject.name);
+        }
 
         WalkToTarget();
+    }
+
+    private void Update()
+    {
+        animator.SetFloat("MovementSpeed", navMeshAgent.speed);
     }
 
     public void SetTarget(Transform target)

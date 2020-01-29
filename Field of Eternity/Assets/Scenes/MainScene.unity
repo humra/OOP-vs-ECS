@@ -813,7 +813,7 @@ MonoBehaviour:
   panBorderThickness: 10
   panClampLimit: {x: 100, y: 100}
   scrollSpeed: 20
-  minY: 20
+  minY: 10
   maxY: 100
 --- !u!1 &1319533444
 GameObject:
