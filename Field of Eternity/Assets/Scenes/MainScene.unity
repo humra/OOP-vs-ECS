@@ -174,6 +174,9 @@ MonoBehaviour:
   - {fileID: 896094319}
   spawnableUnits:
   - {fileID: 5037968483323974137, guid: 88dcf82c10052824d8947c6e63a1ace7, type: 3}
+  - {fileID: 5374350652788002130, guid: 1c2adc58014c3824ab442d1a650f743a, type: 3}
+  - {fileID: 4647952991862027031, guid: 680c7d0b3a2daa24e8c50875f6e1341c, type: 3}
+  - {fileID: 4499014872753121573, guid: e945de9791eb0984981303bc6f43e97f, type: 3}
 --- !u!114 &58938976
 MonoBehaviour:
   m_ObjectHideFlags: 0

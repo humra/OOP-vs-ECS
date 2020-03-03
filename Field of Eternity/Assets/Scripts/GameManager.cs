@@ -29,16 +29,24 @@ public class GameManager : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Space))
         {
-            spawner.SpawnUnit(0);
+            spawner.SpawnUnit();
+        }
+        else if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            spawner.IncreaseSpawnIndex();
+        }
+        else if(Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            spawner.DecreaseSpawnIndex();
         }
 
         if(ResourceTracker.PlayerHealthCurrent <= 0)
         {
-            //AIWin();
+            AIWin();
         }
         else if(ResourceTracker.AIHealthCurrent <= 0)
         {
-            //PlayerWin();
+            PlayerWin();
         }
 
         if(Input.GetKeyDown(KeyCode.O))
@@ -50,11 +58,13 @@ public class GameManager : MonoBehaviour
 
     private void AIWin()
     {
+        //TO-DO
         Debug.Log("AI HAS WON!");
     }
 
     private void PlayerWin()
     {
+        //TO-DO
         Debug.Log("PLAYER HAS WON!");
     }
 

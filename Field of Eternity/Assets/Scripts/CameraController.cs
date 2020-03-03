@@ -3,11 +3,11 @@
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private float panSpeed = 30f;
+    private float panSpeed = 40f;
     [SerializeField]
     private float panBorderThickness = 10f;
     [SerializeField]
-    private Vector2 panClampLimit;
+    private Vector2 panClampLimit = new Vector2(100, 100);
     [SerializeField]
     private float scrollSpeed = 20f;
     [SerializeField]

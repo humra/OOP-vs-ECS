@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private GameObject[] spawnableUnits;
 
+    private int spawnableUnitsIndex = 0;
     private int activePlayerLaneIndex = 0;
 
     public void SelectLane(int laneIndex)
@@ -16,10 +17,42 @@ public class Spawner : MonoBehaviour
         activePlayerLaneIndex = laneIndex;
     }
 
-    public void SpawnUnit(int unitIndex)
+    public void SpawnUnit()
     {
-        GameObject newUnit = Instantiate(spawnableUnits[unitIndex], playerSpawnPoints[activePlayerLaneIndex].transform.position, Quaternion.identity);
-        newUnit.GetComponent<UnitAI>().SetTarget(AISpawnPoints[activePlayerLaneIndex].transform);
-        newUnit.GetComponent<UnitAI>().SetPlayerOwned(true);
+        if(spawnableUnitsIndex == 0)
+        {
+            GameObject newUnit = Instantiate(spawnableUnits[spawnableUnitsIndex], playerSpawnPoints[activePlayerLaneIndex].transform.position, Quaternion.identity);
+            newUnit.GetComponent<UnitAI>().SetTarget(AISpawnPoints[activePlayerLaneIndex].transform);
+            newUnit.GetComponent<UnitAI>().SetPlayerOwned(true);
+        }
+        else
+        {
+            GameObject spawnGroup = Instantiate(spawnableUnits[spawnableUnitsIndex], playerSpawnPoints[activePlayerLaneIndex].transform.position, Quaternion.identity);
+            UnitAI[] groupMembers = spawnGroup.GetComponentsInChildren<UnitAI>();
+            spawnGroup.GetComponent<UnitGroupDestroyer>().SetActiveUnitsCount(groupMembers.Length);
+            
+            for(int i = 0; i < groupMembers.Length; i++)
+            {
+                groupMembers[i].SetTarget(AISpawnPoints[activePlayerLaneIndex].transform);
+                groupMembers[i].SetPlayerOwned(true);
+                groupMembers[i].SetGroupMember(true);
+            }
+        }
+    }
+
+    public void IncreaseSpawnIndex()
+    {
+        if(spawnableUnitsIndex + 1 < spawnableUnits.Length)
+        {
+            spawnableUnitsIndex++;
+        }
+    }
+
+    public void DecreaseSpawnIndex()
+    {
+        if(spawnableUnitsIndex != 0)
+        {
+            spawnableUnitsIndex--;
+        }
     }
 }

@@ -7,6 +7,7 @@ public class UnitAI : MonoBehaviour
     private Transform target;
     private bool playerOwned;
     private Animator animator;
+    private bool groupMember = false;
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -40,6 +41,11 @@ public class UnitAI : MonoBehaviour
         playerOwned = isPlayerOwned;
     }
 
+    public void SetGroupMember(bool isGroupMember)
+    {
+        groupMember = isGroupMember;
+    }
+
     private void WalkToTarget()
     {
         navMeshAgent.SetDestination(target.position);
@@ -50,12 +56,22 @@ public class UnitAI : MonoBehaviour
         if (other.gameObject.tag.Equals("PlayerBase") && !playerOwned)
         {
             ResourceTracker.PlayerHealthCurrent--;
+            HandleGroupMemberDestroy();
             Destroy(gameObject);
         }
         else if (other.gameObject.tag.Equals("AIBase") && playerOwned)
         {
             ResourceTracker.AIHealthCurrent--;
+            HandleGroupMemberDestroy();
             Destroy(gameObject);
+        }
+    }
+
+    private void HandleGroupMemberDestroy()
+    {
+        if (groupMember)
+        {
+            GetComponentInParent<UnitGroupDestroyer>().UnitDestroyed();
         }
     }
 }
