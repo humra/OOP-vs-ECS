@@ -24,18 +24,20 @@ public class Spawner : MonoBehaviour
             GameObject newUnit = Instantiate(spawnableUnits[spawnableUnitsIndex], playerSpawnPoints[activePlayerLaneIndex].transform.position, Quaternion.identity);
             newUnit.GetComponent<UnitAI>().SetTarget(AISpawnPoints[activePlayerLaneIndex].transform);
             newUnit.GetComponent<UnitAI>().SetPlayerOwned(true);
+            newUnit.GetComponent<UnitAI>().unitDestroy = FindObjectOfType<GameManager>();
         }
         else
         {
             GameObject spawnGroup = Instantiate(spawnableUnits[spawnableUnitsIndex], playerSpawnPoints[activePlayerLaneIndex].transform.position, Quaternion.identity);
             UnitAI[] groupMembers = spawnGroup.GetComponentsInChildren<UnitAI>();
             spawnGroup.GetComponent<UnitGroupDestroyer>().SetActiveUnitsCount(groupMembers.Length);
-            
-            for(int i = 0; i < groupMembers.Length; i++)
+
+            for (int i = 0; i < groupMembers.Length; i++)
             {
                 groupMembers[i].SetTarget(AISpawnPoints[activePlayerLaneIndex].transform);
                 groupMembers[i].SetPlayerOwned(true);
                 groupMembers[i].SetGroupMember(true);
+                groupMembers[i].unitDestroy = FindObjectOfType<GameManager>();
             }
         }
     }

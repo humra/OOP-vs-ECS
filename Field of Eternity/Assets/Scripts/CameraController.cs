@@ -14,24 +14,26 @@ public class CameraController : MonoBehaviour
     private float minY = 20f;
     [SerializeField]
     private float maxY = 100f;
+    [SerializeField]
+    private bool mouseCameraPan = false;
 
     private void Update()
     {
         Vector3 pos = transform.position;
 
-        if(Input.GetKey(KeyCode.W) || Input.mousePosition.y >= (Screen.height - panBorderThickness) || Input.GetKey(KeyCode.UpArrow))
+        if(Input.GetKey(KeyCode.W) || (Input.mousePosition.y >= (Screen.height - panBorderThickness) && mouseCameraPan) || Input.GetKey(KeyCode.UpArrow))
         {
             pos.z += panSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.S) || Input.mousePosition.y <= panBorderThickness || Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S) || (Input.mousePosition.y <= panBorderThickness && mouseCameraPan) || Input.GetKey(KeyCode.DownArrow))
         {
             pos.z -= panSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.D) || Input.mousePosition.x >= (Screen.width - panBorderThickness) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D) || (Input.mousePosition.x >= (Screen.width - panBorderThickness) && mouseCameraPan) || Input.GetKey(KeyCode.RightArrow))
         {
             pos.x += panSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.A) || Input.mousePosition.x <= panBorderThickness || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A) || (Input.mousePosition.x <= panBorderThickness && mouseCameraPan) || Input.GetKey(KeyCode.LeftArrow))
         {
             pos.x -= panSpeed * Time.deltaTime;
         }

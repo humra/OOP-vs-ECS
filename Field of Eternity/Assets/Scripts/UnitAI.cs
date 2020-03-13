@@ -8,6 +8,8 @@ public class UnitAI : MonoBehaviour
     private bool playerOwned;
     private Animator animator;
     private bool groupMember = false;
+
+    public IUnitDestroy unitDestroy;
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -56,12 +58,14 @@ public class UnitAI : MonoBehaviour
         if (other.gameObject.tag.Equals("PlayerBase") && !playerOwned)
         {
             ResourceTracker.PlayerHealthCurrent--;
+            unitDestroy.UnitReachedBase();
             HandleGroupMemberDestroy();
             Destroy(gameObject);
         }
         else if (other.gameObject.tag.Equals("AIBase") && playerOwned)
         {
-            ResourceTracker.AIHealthCurrent--;
+            ResourceTracker.ComputerHealthCurrent--;
+            unitDestroy.UnitReachedBase();
             HandleGroupMemberDestroy();
             Destroy(gameObject);
         }
