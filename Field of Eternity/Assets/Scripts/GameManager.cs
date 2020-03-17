@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour, IUnitDestroy
+public class GameManager : MonoBehaviour, IUnitDestroy, ISupplyChange
 { 
     private Spawner spawner;
     private UIManager uiManager;
+    private SupplyManager supplyManager;
 
     private void Start()
     {
         spawner = GetComponent<Spawner>();
         uiManager = GetComponent<UIManager>();
+        supplyManager = GetComponent<SupplyManager>();
 
         CheckForMissingComponents();
 
         ResourceTracker.ResetValues();
+        supplyManager.StartResupplyForBoth();
+        supplyManager.SetSupplyChangeInterface(this);
         uiManager.LoadElements();
         uiManager.UpdateUI();
     }
@@ -33,7 +37,8 @@ public class GameManager : MonoBehaviour, IUnitDestroy
         }
         else if(Input.GetKeyDown(KeyCode.Space))
         {
-            spawner.SpawnUnit();
+            spawner.SpawnUnitPlayer();
+            uiManager.UpdateUI();
         }
         else if(Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -84,9 +89,18 @@ public class GameManager : MonoBehaviour, IUnitDestroy
         {
             Debug.LogError("GameManager.cs - Missing Component: UIManager");
         }
+        if(supplyManager == null)
+        {
+            Debug.LogError("GameManager.cs - Missing Component: SupplyManager");
+        }
     }
 
     public void UnitReachedBase()
+    {
+        uiManager.UpdateUI();
+    }
+
+    public void ResupplyCompleted()
     {
         uiManager.UpdateUI();
     }
@@ -95,4 +109,9 @@ public class GameManager : MonoBehaviour, IUnitDestroy
 public interface IUnitDestroy
 {
     void UnitReachedBase();
+}
+
+public interface ISupplyChange
+{
+    void ResupplyCompleted();
 }

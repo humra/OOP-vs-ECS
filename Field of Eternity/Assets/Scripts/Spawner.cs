@@ -17,8 +17,13 @@ public class Spawner : MonoBehaviour
         activePlayerLaneIndex = laneIndex;
     }
 
-    public void SpawnUnit()
+    public void SpawnUnitPlayer()
     {
+        if(ResourceTracker.PlayerSupplyCurrent < ResourceTracker.UnitSupplyCost[spawnableUnitsIndex])
+        {
+            return;
+        }
+
         if(spawnableUnitsIndex == 0)
         {
             GameObject newUnit = Instantiate(spawnableUnits[spawnableUnitsIndex], playerSpawnPoints[activePlayerLaneIndex].transform.position, Quaternion.identity);
@@ -40,6 +45,9 @@ public class Spawner : MonoBehaviour
                 groupMembers[i].unitDestroy = FindObjectOfType<GameManager>();
             }
         }
+
+        ResourceTracker.PlayerSupplyCurrent -= ResourceTracker.UnitSupplyCost[spawnableUnitsIndex];
+        ResourceTracker.PlayerSupplyCurrent = Mathf.Clamp(ResourceTracker.PlayerSupplyCurrent, 0, ResourceTracker.PlayerSupplyMax);
     }
 
     public void IncreaseSpawnIndex()

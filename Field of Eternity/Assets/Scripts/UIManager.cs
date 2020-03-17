@@ -4,7 +4,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     private Text playerHPText;
-    private Text ComputerHPText;
+    private Text computerHPText;
+    private Text playerSupplyText;
     private bool elementsLoaded = false;
     private int selectedIndex = 0;
 
@@ -19,13 +20,15 @@ public class UIManager : MonoBehaviour
         }
 
         playerHPText = GameObject.Find(UIComponentNames.playerHPText).GetComponent<Text>();
-        ComputerHPText = GameObject.Find(UIComponentNames.computerHPText).GetComponent<Text>();
+        computerHPText = GameObject.Find(UIComponentNames.computerHPText).GetComponent<Text>();
+        playerSupplyText = GameObject.Find(UIComponentNames.playerSupplyText).GetComponent<Text>();
     }
 
     public void UpdateUI()
     {
         playerHPText.text = ResourceTracker.PlayerHealthCurrent.ToString();
-        ComputerHPText.text = ResourceTracker.ComputerHealthCurrent.ToString();
+        computerHPText.text = ResourceTracker.ComputerHealthCurrent.ToString();
+        playerSupplyText.text = ResourceTracker.PlayerSupplyCurrent.ToString();
 
         for (int i = 0; i < unitNumberSelectionPanels.Length; i++)
         {
