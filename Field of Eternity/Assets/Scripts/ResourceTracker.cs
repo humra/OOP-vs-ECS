@@ -9,8 +9,8 @@
     public static int PlayerSupplyCurrent;
     public static int ComputerSupplyCurrent;
     public static int PlayerSupplyStart = 100;
-    public static int ComputerSupplyStart = 100;
-    public static int[] UnitSupplyCost = new int[] { 5, 15, 30, 50 };
+    public static int ComputerSupplyStart = 50;
+    public static int[] UnitSupplyCost = new int[] { 5, 15, 30, 75 };
 
     public static void ResetValues()
     {

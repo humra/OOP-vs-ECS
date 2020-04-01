@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 58938975}
   - component: {fileID: 58938977}
   - component: {fileID: 58938978}
+  - component: {fileID: 58938979}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -247,7 +248,7 @@ MonoBehaviour:
   - {fileID: 2045808421}
   - {fileID: 885709298}
   - {fileID: 639950700}
-  AISpawnPoints:
+  computerSpawnPoints:
   - {fileID: 1831361031}
   - {fileID: 1319533444}
   - {fileID: 896094319}
@@ -299,6 +300,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   supplyAmount: 5
   supplyRate: 1
+--- !u!114 &58938979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58938973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a676aac7fc4fc48abbae06d94098e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &85428233
 GameObject:
   m_ObjectHideFlags: 0

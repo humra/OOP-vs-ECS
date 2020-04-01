@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour, IUnitDestroy, ISupplyChange
+public class GameManager : MonoBehaviour, IUnitDestroy, ISupplyChange, IComputerManager
 { 
     private Spawner spawner;
     private UIManager uiManager;
     private SupplyManager supplyManager;
+    private ComputerManager computerManager;
 
     private void Start()
     {
         spawner = GetComponent<Spawner>();
         uiManager = GetComponent<UIManager>();
         supplyManager = GetComponent<SupplyManager>();
+        computerManager = GetComponent<ComputerManager>();
 
         CheckForMissingComponents();
 
@@ -19,6 +21,9 @@ public class GameManager : MonoBehaviour, IUnitDestroy, ISupplyChange
         supplyManager.SetSupplyChangeInterface(this);
         uiManager.LoadElements();
         uiManager.UpdateUI();
+        computerManager.SetComputerManagerInterface(this);
+        computerManager.SetLaneSpawnableUnitsLength(spawner.GetLaneLength(), spawner.GetSpawnableUnitsLength());
+        computerManager.GenerateSpawns();
     }
 
     private void Update()
@@ -93,6 +98,10 @@ public class GameManager : MonoBehaviour, IUnitDestroy, ISupplyChange
         {
             Debug.LogError("GameManager.cs - Missing Component: SupplyManager");
         }
+        if(computerManager == null)
+        {
+            Debug.LogError("GameManager.cs - Missing Component: ComputerManager");
+        }
     }
 
     public void UnitReachedBase()
@@ -104,6 +113,11 @@ public class GameManager : MonoBehaviour, IUnitDestroy, ISupplyChange
     {
         uiManager.UpdateUI();
     }
+
+    public bool SpawnComputerUnit(int laneIndex, int spawnableUnitIndex)
+    {
+        return spawner.SpawnUnitComputer(laneIndex, spawnableUnitIndex);
+    }
 }
 
 public interface IUnitDestroy
@@ -114,4 +128,9 @@ public interface IUnitDestroy
 public interface ISupplyChange
 {
     void ResupplyCompleted();
+}
+
+public interface IComputerManager
+{
+    bool SpawnComputerUnit(int laneIndex, int spawnableUnitIndex);
 }

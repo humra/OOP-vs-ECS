@@ -5,7 +5,7 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private GameObject[] playerSpawnPoints;
     [SerializeField]
-    private GameObject[] AISpawnPoints;
+    private GameObject[] computerSpawnPoints;
     [SerializeField]
     private GameObject[] spawnableUnits;
 
@@ -27,7 +27,7 @@ public class Spawner : MonoBehaviour
         if(spawnableUnitsIndex == 0)
         {
             GameObject newUnit = Instantiate(spawnableUnits[spawnableUnitsIndex], playerSpawnPoints[activePlayerLaneIndex].transform.position, Quaternion.identity);
-            newUnit.GetComponent<UnitAI>().SetTarget(AISpawnPoints[activePlayerLaneIndex].transform);
+            newUnit.GetComponent<UnitAI>().SetTarget(computerSpawnPoints[activePlayerLaneIndex].transform);
             newUnit.GetComponent<UnitAI>().SetPlayerOwned(true);
             newUnit.GetComponent<UnitAI>().unitDestroy = FindObjectOfType<GameManager>();
         }
@@ -39,7 +39,7 @@ public class Spawner : MonoBehaviour
 
             for (int i = 0; i < groupMembers.Length; i++)
             {
-                groupMembers[i].SetTarget(AISpawnPoints[activePlayerLaneIndex].transform);
+                groupMembers[i].SetTarget(computerSpawnPoints[activePlayerLaneIndex].transform);
                 groupMembers[i].SetPlayerOwned(true);
                 groupMembers[i].SetGroupMember(true);
                 groupMembers[i].unitDestroy = FindObjectOfType<GameManager>();
@@ -48,6 +48,41 @@ public class Spawner : MonoBehaviour
 
         ResourceTracker.PlayerSupplyCurrent -= ResourceTracker.UnitSupplyCost[spawnableUnitsIndex];
         ResourceTracker.PlayerSupplyCurrent = Mathf.Clamp(ResourceTracker.PlayerSupplyCurrent, 0, ResourceTracker.PlayerSupplyMax);
+    }
+
+    public bool SpawnUnitComputer(int laneIndex, int spawnableIndex)
+    {
+        if(ResourceTracker.ComputerSupplyCurrent < ResourceTracker.UnitSupplyCost[spawnableIndex])
+        {
+            Debug.Log("Not enough resources to spawn computer units!");
+            return false;
+        }
+
+        if(spawnableIndex == 0)
+        {
+            GameObject newUnit = Instantiate(spawnableUnits[spawnableIndex], computerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
+            newUnit.GetComponent<UnitAI>().SetTarget(playerSpawnPoints[laneIndex].transform);
+            newUnit.GetComponent<UnitAI>().SetPlayerOwned(false);
+            newUnit.GetComponent<UnitAI>().unitDestroy = FindObjectOfType<GameManager>();
+        }
+        else
+        {
+            GameObject spawnGroup = Instantiate(spawnableUnits[spawnableIndex], computerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
+            UnitAI[] groupMemebers = spawnGroup.GetComponentsInChildren<UnitAI>();
+            spawnGroup.GetComponent<UnitGroupDestroyer>().SetActiveUnitsCount(groupMemebers.Length);
+
+            for(int i = 0; i < groupMemebers.Length; i++)
+            {
+                groupMemebers[i].SetTarget(playerSpawnPoints[laneIndex].transform);
+                groupMemebers[i].SetPlayerOwned(false);
+                groupMemebers[i].SetGroupMember(true);
+                groupMemebers[i].unitDestroy = FindObjectOfType<GameManager>();
+            }
+        }
+
+        ResourceTracker.ComputerSupplyCurrent -= ResourceTracker.UnitSupplyCost[spawnableIndex];
+        ResourceTracker.ComputerSupplyCurrent = Mathf.Clamp(ResourceTracker.ComputerSupplyCurrent, 0, ResourceTracker.ComputerSupplyMax);
+        return true;
     }
 
     public void IncreaseSpawnIndex()
@@ -64,5 +99,15 @@ public class Spawner : MonoBehaviour
         {
             spawnableUnitsIndex--;
         }
+    }
+
+    public int GetLaneLength()
+    {
+        return computerSpawnPoints.Length;
+    }
+
+    public int GetSpawnableUnitsLength()
+    {
+        return spawnableUnits.Length;
     }
 }
