@@ -12,6 +12,8 @@ public class Spawner : MonoBehaviour
     private int spawnableUnitsIndex = 0;
     private int activePlayerLaneIndex = 0;
 
+    private ISpawnManager spawnManager;
+
     public void SelectLane(int laneIndex)
     {
         activePlayerLaneIndex = laneIndex;
@@ -29,20 +31,22 @@ public class Spawner : MonoBehaviour
             GameObject newUnit = Instantiate(spawnableUnits[spawnableUnitsIndex], playerSpawnPoints[activePlayerLaneIndex].transform.position, Quaternion.identity);
             newUnit.GetComponent<UnitAI>().SetTarget(computerSpawnPoints[activePlayerLaneIndex].transform);
             newUnit.GetComponent<UnitAI>().SetPlayerOwned(true);
-            newUnit.GetComponent<UnitAI>().unitDestroy = FindObjectOfType<GameManager>();
+            newUnit.GetComponent<UnitAI>().unitManager = FindObjectOfType<GameManager>();
+            spawnManager.AddPlayerUnit(newUnit.GetComponent<UnitAI>());
         }
         else
         {
             GameObject spawnGroup = Instantiate(spawnableUnits[spawnableUnitsIndex], playerSpawnPoints[activePlayerLaneIndex].transform.position, Quaternion.identity);
             UnitAI[] groupMembers = spawnGroup.GetComponentsInChildren<UnitAI>();
             spawnGroup.GetComponent<UnitGroupDestroyer>().SetActiveUnitsCount(groupMembers.Length);
+            spawnManager.AddPlayerUnits(groupMembers);
 
             for (int i = 0; i < groupMembers.Length; i++)
             {
                 groupMembers[i].SetTarget(computerSpawnPoints[activePlayerLaneIndex].transform);
                 groupMembers[i].SetPlayerOwned(true);
                 groupMembers[i].SetGroupMember(true);
-                groupMembers[i].unitDestroy = FindObjectOfType<GameManager>();
+                groupMembers[i].unitManager = FindObjectOfType<GameManager>();
             }
         }
 
@@ -63,20 +67,22 @@ public class Spawner : MonoBehaviour
             GameObject newUnit = Instantiate(spawnableUnits[spawnableIndex], computerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
             newUnit.GetComponent<UnitAI>().SetTarget(playerSpawnPoints[laneIndex].transform);
             newUnit.GetComponent<UnitAI>().SetPlayerOwned(false);
-            newUnit.GetComponent<UnitAI>().unitDestroy = FindObjectOfType<GameManager>();
+            newUnit.GetComponent<UnitAI>().unitManager = FindObjectOfType<GameManager>();
+            spawnManager.AddComputerUnit(newUnit.GetComponent<UnitAI>());
         }
         else
         {
             GameObject spawnGroup = Instantiate(spawnableUnits[spawnableIndex], computerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
             UnitAI[] groupMemebers = spawnGroup.GetComponentsInChildren<UnitAI>();
             spawnGroup.GetComponent<UnitGroupDestroyer>().SetActiveUnitsCount(groupMemebers.Length);
+            spawnManager.AddComputerUnits(groupMemebers);
 
             for(int i = 0; i < groupMemebers.Length; i++)
             {
                 groupMemebers[i].SetTarget(playerSpawnPoints[laneIndex].transform);
                 groupMemebers[i].SetPlayerOwned(false);
                 groupMemebers[i].SetGroupMember(true);
-                groupMemebers[i].unitDestroy = FindObjectOfType<GameManager>();
+                groupMemebers[i].unitManager = FindObjectOfType<GameManager>();
             }
         }
 
@@ -109,5 +115,10 @@ public class Spawner : MonoBehaviour
     public int GetSpawnableUnitsLength()
     {
         return spawnableUnits.Length;
+    }
+
+    public void SetSpawnerManagerInterface(ISpawnManager spawnManager)
+    {
+        this.spawnManager = spawnManager;
     }
 }

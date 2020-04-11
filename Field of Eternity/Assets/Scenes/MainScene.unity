@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 243064305}
   - component: {fileID: 243064304}
   - component: {fileID: 243064307}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AIBase
   m_TagString: AIBase
   m_Icon: {fileID: 0}
@@ -1082,7 +1082,7 @@ GameObject:
   - component: {fileID: 889527334}
   - component: {fileID: 889527333}
   - component: {fileID: 889527336}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerBase
   m_TagString: PlayerBase
   m_Icon: {fileID: 0}
@@ -1220,7 +1220,7 @@ GameObject:
   - component: {fileID: 898544938}
   - component: {fileID: 898544937}
   - component: {fileID: 898544936}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TopLane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1581,7 +1581,7 @@ GameObject:
   - component: {fileID: 1530858393}
   - component: {fileID: 1530858392}
   - component: {fileID: 1530858391}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BotLane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1925,7 +1925,7 @@ GameObject:
   - component: {fileID: 1820890735}
   - component: {fileID: 1820890734}
   - component: {fileID: 1820890733}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MidLane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2014,7 +2014,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1828334832}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}

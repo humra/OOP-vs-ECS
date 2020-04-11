@@ -7,7 +7,7 @@ public class ComputerSpawn
 
     public ComputerSpawn(int laneLength, int spawnableUnitsLength)
     {
-        laneIndex = Random.Range(0, laneLength - 1);
+        laneIndex = Random.Range(0, laneLength);
         spawnableUnitsIndex = Random.Range(0, spawnableUnitsLength - 1);
     }
 }

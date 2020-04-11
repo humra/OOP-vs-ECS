@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour, IUnitDestroy, ISupplyChange, IComputerManager
+public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputerManager, ISpawnManager
 { 
     private Spawner spawner;
     private UIManager uiManager;
     private SupplyManager supplyManager;
     private ComputerManager computerManager;
+    private List<UnitAI> playerUnits;
+    private List<UnitAI> computerUnits;
+    private List<UnitAI> markedForRemoval;
 
     private void Start()
     {
@@ -13,6 +17,10 @@ public class GameManager : MonoBehaviour, IUnitDestroy, ISupplyChange, IComputer
         uiManager = GetComponent<UIManager>();
         supplyManager = GetComponent<SupplyManager>();
         computerManager = GetComponent<ComputerManager>();
+
+        playerUnits = new List<UnitAI>();
+        computerUnits = new List<UnitAI>();
+        markedForRemoval = new List<UnitAI>();
 
         CheckForMissingComponents();
 
@@ -24,6 +32,9 @@ public class GameManager : MonoBehaviour, IUnitDestroy, ISupplyChange, IComputer
         computerManager.SetComputerManagerInterface(this);
         computerManager.SetLaneSpawnableUnitsLength(spawner.GetLaneLength(), spawner.GetSpawnableUnitsLength());
         computerManager.GenerateSpawns();
+        spawner.SetSpawnerManagerInterface(this);
+
+        InvokeRepeating("CheckForCombatEngagement", 3f, 1f);
     }
 
     private void Update()
@@ -118,11 +129,141 @@ public class GameManager : MonoBehaviour, IUnitDestroy, ISupplyChange, IComputer
     {
         return spawner.SpawnUnitComputer(laneIndex, spawnableUnitIndex);
     }
+
+    public void StopTrackingUnit(UnitAI unit)
+    {
+        playerUnits.Remove(unit);
+    }
+
+    #region UnitListManagement
+
+    public void AddPlayerUnit(UnitAI unit)
+    {
+        playerUnits.Add(unit);
+    }
+
+    public void AddPlayerUnits(UnitAI[] units)
+    {
+        for(int i = 0; i < units.Length; i++)
+        {
+            playerUnits.Add(units[i]);
+        }
+    }
+
+    public void AddComputerUnit(UnitAI unit)
+    {
+        computerUnits.Add(unit);
+    }
+
+    public void AddComputerUnits(UnitAI[] units)
+    {
+        for(int i = 0; i < units.Length; i++)
+        {
+            computerUnits.Add(units[i]);
+        }
+    }
+
+    public void StopTrackingUnits(UnitAI unit)
+    {
+        markedForRemoval.Add(unit);
+    }
+
+    #endregion
+
+    private void CheckForCombatEngagement()
+    {
+        if(playerUnits.Count > 0)
+        {
+            EngagePlayerUnits();
+        }
+
+        if(computerUnits.Count > 0)
+        {
+            EngageComputerUnits();
+        }
+
+        if(markedForRemoval.Count > 0)
+        {
+            CleanMarkedForRemoval();
+        }
+    }
+
+    private void EngagePlayerUnits()
+    {
+        for (int i = 0; i < playerUnits.Count; i++)
+        {
+            if (playerUnits[i].inCombat || playerUnits[i] == null)
+            {
+                continue;
+            }
+
+            Vector3 unitPosition = playerUnits[i].transform.position;
+            float engageRange = playerUnits[i].GetEngageRange();
+
+            for (int j = 0; j < computerUnits.Count; j++)
+            {
+                if (computerUnits[j] == null)
+                {
+                    continue;
+                }
+
+                if ((Vector3.Distance(unitPosition, computerUnits[j].transform.position) <= engageRange))
+                {
+                    playerUnits[i].EngageTarget(computerUnits[j]);
+                }
+            }
+        }
+    }
+
+    private void EngageComputerUnits()
+    {
+        for (int i = 0; i < computerUnits.Count; i++)
+        {
+            if (computerUnits[i].inCombat || computerUnits[i] == null)
+            {
+                continue;
+            }
+
+            Vector3 unitPosition = computerUnits[i].transform.position;
+            float engageRange = computerUnits[i].GetEngageRange();
+
+            for (int j = 0; j < playerUnits.Count; j++)
+            {
+                if (playerUnits[j] == null)
+                {
+                    continue;
+                }
+
+                if ((Vector3.Distance(unitPosition, playerUnits[j].transform.position) <= engageRange))
+                {
+                    computerUnits[i].EngageTarget(playerUnits[j]);
+                }
+            }
+        }
+    }
+
+    private void CleanMarkedForRemoval()
+    {
+        for (int i = 0; i < markedForRemoval.Count; i++)
+        {
+            if (markedForRemoval[i].GetPlayerOwned())
+            {
+                playerUnits.Remove(markedForRemoval[i]);
+            }
+            else
+            {
+                computerUnits.Remove(markedForRemoval[i]);
+            }
+        }
+
+        markedForRemoval.Clear();
+    }
 }
 
-public interface IUnitDestroy
+public interface IUnitManager
 {
     void UnitReachedBase();
+    void StopTrackingUnit(UnitAI unit);
 }
 
 public interface ISupplyChange
@@ -133,4 +274,12 @@ public interface ISupplyChange
 public interface IComputerManager
 {
     bool SpawnComputerUnit(int laneIndex, int spawnableUnitIndex);
+}
+
+public interface ISpawnManager
+{
+    void AddPlayerUnit(UnitAI unit);
+    void AddPlayerUnits(UnitAI[] units);
+    void AddComputerUnit(UnitAI unit);
+    void AddComputerUnits(UnitAI[] units);
 }
