@@ -50,6 +50,11 @@ public class UnitAI : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if(inCombat)
+        {
+            navMeshAgent.SetDestination(targetEnemy.transform.position);
+        }
+
         animator.SetFloat("MovementSpeed", navMeshAgent.speed);
     }
 
