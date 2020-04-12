@@ -1,0 +1,3 @@
+Alpha 1/2/3 - select lane
+Shift - increase number of spawned units
+Ctrl - decrease number of spawned units
