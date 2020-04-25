@@ -79,6 +79,7 @@ public class Spawner : MonoBehaviour
 
             for(int i = 0; i < groupMemebers.Length; i++)
             {
+                //groupMemebers[i].WarpAgent(groupMemebers[i].transform.position);
                 groupMemebers[i].SetTarget(playerSpawnPoints[laneIndex].transform);
                 groupMemebers[i].SetPlayerOwned(false);
                 groupMemebers[i].SetGroupMember(true);

@@ -10,6 +10,7 @@ public class UnitAI : MonoBehaviour
     private bool groupMember = false;
     private bool dead = false;
     private UnitAI targetEnemy;
+    private Vector3 targetEnemyPosition;
 
     [SerializeField]
     private int health = 10;
@@ -38,6 +39,8 @@ public class UnitAI : MonoBehaviour
             Debug.LogError("UnitAI - Animator not found on " + gameObject.name);
         }
 
+        navMeshAgent.Warp(transform.position);
+
         WalkToTarget();
     }
 
@@ -48,11 +51,6 @@ public class UnitAI : MonoBehaviour
             HandleGroupMemberDestroy();
             unitManager.StopTrackingUnit(this);
             Destroy(gameObject);
-        }
-
-        if(inCombat)
-        {
-            navMeshAgent.SetDestination(targetEnemy.transform.position);
         }
 
         animator.SetFloat("MovementSpeed", navMeshAgent.speed);
@@ -88,18 +86,49 @@ public class UnitAI : MonoBehaviour
         navMeshAgent.SetDestination(enemyUnit.transform.position);
         inCombat = true;
         targetEnemy = enemyUnit;
+        targetEnemyPosition = targetEnemy.transform.position;
         InvokeRepeating("AttackEnemy", 0.1f, 1 / attackSpeed);
+        InvokeRepeating("MoveToEnemy", 0.2f, 0.05f);
     }
 
     private void AttackEnemy()
     {
+        //navMeshAgent.SetDestination(targetEnemyPosition);
+        //navMeshAgent.isStopped = true;
         animator.SetTrigger("AttackTrigger");
+
         if(targetEnemy.TakeDamage(damage))
         {
             inCombat = false;
+            targetEnemy = null;
+            WalkToTarget();
+            CancelInvoke("AttackEnemy");
+            CancelInvoke("MoveToEnemy");
+        }
+        else
+        {
+            targetEnemyPosition = targetEnemy.transform.position;
+        }
+
+        if(Vector3.Distance(targetEnemyPosition, transform.position) > engageRange)
+        {
+            inCombat = false;
+            targetEnemy = null;
             WalkToTarget();
             CancelInvoke("AttackEnemy");
         }
+    }
+
+    private void MoveToEnemy()
+    {
+        if(targetEnemy == null)
+        {
+            CancelInvoke("MoveToEnemy");
+            return;
+        }
+
+        targetEnemyPosition = targetEnemy.transform.position;
+        navMeshAgent.SetDestination(targetEnemyPosition);
     }
 
     public bool TakeDamage(int damageToTake)

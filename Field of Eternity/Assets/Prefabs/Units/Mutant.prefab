@@ -639,7 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 30
   damage: 1
-  engageRange: 10
+  engageRange: 15
   attackSpeed: 1
   inCombat: 0
 --- !u!54 &-6306358717002596584
