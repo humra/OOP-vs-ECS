@@ -617,7 +617,7 @@ NavMeshAgent:
   m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 30
   damage: 1
-  engageRange: 10
+  engageRange: 5
   attackSpeed: 1
   combatReadyCooldown: 15
   inCombat: 0

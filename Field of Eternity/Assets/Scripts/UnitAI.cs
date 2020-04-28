@@ -10,7 +10,6 @@ public class UnitAI : MonoBehaviour
     private bool groupMember = false;
     private bool dead = false;
     private UnitAI targetEnemy;
-    private Vector3 targetEnemyPosition;
 
     [SerializeField]
     private int health = 10;
@@ -96,53 +95,23 @@ public class UnitAI : MonoBehaviour
 
     public void EngageTarget(UnitAI enemyUnit)
     {
-        navMeshAgent.SetDestination(enemyUnit.transform.position);
         inCombat = true;
+        animator.SetBool("InCombat", inCombat);
         targetEnemy = enemyUnit;
-        targetEnemyPosition = targetEnemy.transform.position;
         InvokeRepeating("AttackEnemy", 0.1f, 1 / attackSpeed);
-        //InvokeRepeating("MoveToEnemy", 0.2f, 0.01f);
+        navMeshAgent.isStopped = true;
     }
 
     private void AttackEnemy()
     {
-        animator.SetTrigger("AttackTrigger");
-
+        
         if(targetEnemy.TakeDamage(damage))
         {
             inCombat = false;
             targetEnemy = null;
             WalkToTarget();
             CancelInvoke("AttackEnemy");
-            CancelInvoke("MoveToEnemy");
-            animator.ResetTrigger("AttackTrigger");
-        }
-        else if(targetEnemy != null)
-        {
-            targetEnemyPosition = targetEnemy.transform.position;
-        }
-
-        if(Vector3.Distance(targetEnemyPosition, transform.position) > engageRange)
-        {
-            inCombat = false;
-            targetEnemy = null;
-            WalkToTarget();
-            CancelInvoke("AttackEnemy");
-        }
-    }
-
-    private void MoveToEnemy()
-    {
-        if(targetEnemy == null)
-        {
-            CancelInvoke("MoveToEnemy");
-            return;
-        }
-
-        if(targetEnemy.navMeshAgent.isOnNavMesh)
-        {
-            targetEnemyPosition = targetEnemy.transform.position;
-            navMeshAgent.SetDestination(targetEnemyPosition);
+            animator.SetBool("InCombat", inCombat);
         }
     }
 
@@ -159,6 +128,7 @@ public class UnitAI : MonoBehaviour
 
     private void WalkToTarget()
     {
+        navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(target.position);
     }
 
