@@ -639,9 +639,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 30
   damage: 1
-  engageRange: 15
+  engageRange: 10
   attackSpeed: 1
+  combatReadyCooldown: 15
   inCombat: 0
+  readyForCombat: 0
 --- !u!54 &-6306358717002596584
 Rigidbody:
   m_ObjectHideFlags: 0

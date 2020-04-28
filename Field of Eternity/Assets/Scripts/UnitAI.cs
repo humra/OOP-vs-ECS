@@ -20,8 +20,11 @@ public class UnitAI : MonoBehaviour
     private float engageRange = 5f;
     [SerializeField]
     private float attackSpeed = 1f;
+    [SerializeField]
+    private float combatReadyCooldown = 15f;
 
     public bool inCombat = false;
+    public bool readyForCombat = false;
     public IUnitManager unitManager;
 
     private void Start()
@@ -54,6 +57,16 @@ public class UnitAI : MonoBehaviour
         }
 
         animator.SetFloat("MovementSpeed", navMeshAgent.speed);
+
+        if(!readyForCombat)
+        {
+            combatReadyCooldown -= Time.deltaTime;
+
+            if(combatReadyCooldown <= 0)
+            {
+                readyForCombat = true;
+            }
+        }
     }
 
     public void SetTarget(Transform target)
@@ -88,13 +101,11 @@ public class UnitAI : MonoBehaviour
         targetEnemy = enemyUnit;
         targetEnemyPosition = targetEnemy.transform.position;
         InvokeRepeating("AttackEnemy", 0.1f, 1 / attackSpeed);
-        InvokeRepeating("MoveToEnemy", 0.2f, 0.05f);
+        //InvokeRepeating("MoveToEnemy", 0.2f, 0.01f);
     }
 
     private void AttackEnemy()
     {
-        //navMeshAgent.SetDestination(targetEnemyPosition);
-        //navMeshAgent.isStopped = true;
         animator.SetTrigger("AttackTrigger");
 
         if(targetEnemy.TakeDamage(damage))
@@ -104,8 +115,9 @@ public class UnitAI : MonoBehaviour
             WalkToTarget();
             CancelInvoke("AttackEnemy");
             CancelInvoke("MoveToEnemy");
+            animator.ResetTrigger("AttackTrigger");
         }
-        else
+        else if(targetEnemy != null)
         {
             targetEnemyPosition = targetEnemy.transform.position;
         }
@@ -127,8 +139,11 @@ public class UnitAI : MonoBehaviour
             return;
         }
 
-        targetEnemyPosition = targetEnemy.transform.position;
-        navMeshAgent.SetDestination(targetEnemyPosition);
+        if(targetEnemy.navMeshAgent.isOnNavMesh)
+        {
+            targetEnemyPosition = targetEnemy.transform.position;
+            navMeshAgent.SetDestination(targetEnemyPosition);
+        }
     }
 
     public bool TakeDamage(int damageToTake)

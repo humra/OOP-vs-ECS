@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputerManager, ISpawnManager
+public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputerManager, ISpawnManager, IPauseMenuManager
 { 
     private Spawner spawner;
     private UIManager uiManager;
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
 
     private void Start()
     {
+        Time.timeScale = 1f;
+
         spawner = GetComponent<Spawner>();
         uiManager = GetComponent<UIManager>();
         supplyManager = GetComponent<SupplyManager>();
@@ -29,6 +32,7 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
         supplyManager.SetSupplyChangeInterface(this);
         uiManager.LoadElements();
         uiManager.UpdateUI();
+        uiManager.SetPauseMenuManager(this);
         computerManager.SetComputerManagerInterface(this);
         computerManager.SetLaneSpawnableUnitsLength(spawner.GetLaneLength(), spawner.GetSpawnableUnitsLength());
         computerManager.GenerateSpawns();
@@ -76,10 +80,9 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
             PlayerWin();
         }
 
-        if(Input.GetKeyDown(KeyCode.O))
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Player health: " + ResourceTracker.PlayerHealthCurrent + " / " + ResourceTracker.PlayerHealthMax);
-            Debug.Log("AI health: " + ResourceTracker.ComputerHealthCurrent + " / " + ResourceTracker.ComputerHealthMax);
+            uiManager.TogglePauseMenu();
         }
     }
 
@@ -170,6 +173,8 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
 
     #endregion
 
+    #region CombatEngagement
+
     private void CheckForCombatEngagement()
     {
         if(playerUnits.Count > 0)
@@ -192,7 +197,7 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
     {
         for (int i = 0; i < playerUnits.Count; i++)
         {
-            if (playerUnits[i].inCombat || playerUnits[i] == null)
+            if (playerUnits[i].inCombat || playerUnits[i] == null || !playerUnits[i].readyForCombat)
             {
                 continue;
             }
@@ -219,7 +224,7 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
     {
         for (int i = 0; i < computerUnits.Count; i++)
         {
-            if (computerUnits[i].inCombat || computerUnits[i] == null)
+            if (computerUnits[i].inCombat || computerUnits[i] == null || !computerUnits[i].readyForCombat)
             {
                 continue;
             }
@@ -258,7 +263,25 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
 
         markedForRemoval.Clear();
     }
+
+    #endregion
+
+    #region PauseMenu
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    #endregion
 }
+
+#region Interfaces
 
 public interface IUnitManager
 {
@@ -283,3 +306,11 @@ public interface ISpawnManager
     void AddComputerUnit(UnitAI unit);
     void AddComputerUnits(UnitAI[] units);
 }
+
+public interface IPauseMenuManager
+{
+    void RestartGame();
+    void QuitGame();
+}
+
+#endregion
