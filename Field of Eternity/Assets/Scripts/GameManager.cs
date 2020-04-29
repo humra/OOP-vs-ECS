@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
         uiManager.UpdateUI();
         uiManager.SetPauseMenuManager(this);
         computerManager.SetComputerManagerInterface(this);
-        computerManager.SetLaneSpawnableUnitsLength(spawner.GetLaneLength(), spawner.GetSpawnableUnitsLength());
+        computerManager.SetLaneSpawnableUnitsLength(spawner.GetLaneLength(), spawner.GetComputerSpawnableUnitsLength());
         computerManager.GenerateSpawns();
         spawner.SetSpawnerManagerInterface(this);
 

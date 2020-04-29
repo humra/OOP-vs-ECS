@@ -8,6 +8,8 @@ public class Spawner : MonoBehaviour
     private GameObject[] computerSpawnPoints;
     [SerializeField]
     private GameObject[] spawnableUnits;
+    [SerializeField]
+    private GameObject[] spawnableComputerUnits;
 
     private int spawnableUnitsIndex = 0;
     private int activePlayerLaneIndex = 0;
@@ -64,7 +66,7 @@ public class Spawner : MonoBehaviour
 
         if(spawnableIndex == 0)
         {
-            GameObject newUnit = Instantiate(spawnableUnits[spawnableIndex], computerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
+            GameObject newUnit = Instantiate(spawnableComputerUnits[spawnableIndex], computerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
             newUnit.GetComponent<UnitAI>().SetTarget(playerSpawnPoints[laneIndex].transform);
             newUnit.GetComponent<UnitAI>().SetPlayerOwned(false);
             newUnit.GetComponent<UnitAI>().unitManager = FindObjectOfType<GameManager>();
@@ -72,14 +74,13 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            GameObject spawnGroup = Instantiate(spawnableUnits[spawnableIndex], computerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
+            GameObject spawnGroup = Instantiate(spawnableComputerUnits[spawnableIndex], computerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
             UnitAI[] groupMemebers = spawnGroup.GetComponentsInChildren<UnitAI>();
             spawnGroup.GetComponent<UnitGroupDestroyer>().SetActiveUnitsCount(groupMemebers.Length);
             spawnManager.AddComputerUnits(groupMemebers);
 
             for(int i = 0; i < groupMemebers.Length; i++)
             {
-                //groupMemebers[i].WarpAgent(groupMemebers[i].transform.position);
                 groupMemebers[i].SetTarget(playerSpawnPoints[laneIndex].transform);
                 groupMemebers[i].SetPlayerOwned(false);
                 groupMemebers[i].SetGroupMember(true);
@@ -116,6 +117,11 @@ public class Spawner : MonoBehaviour
     public int GetSpawnableUnitsLength()
     {
         return spawnableUnits.Length;
+    }
+
+    public int GetComputerSpawnableUnitsLength()
+    {
+        return spawnableComputerUnits.Length;
     }
 
     public void SetSpawnerManagerInterface(ISpawnManager spawnManager)

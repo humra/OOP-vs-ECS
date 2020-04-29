@@ -104,7 +104,6 @@ public class UnitAI : MonoBehaviour
 
     private void AttackEnemy()
     {
-        
         if(targetEnemy.TakeDamage(damage))
         {
             inCombat = false;
