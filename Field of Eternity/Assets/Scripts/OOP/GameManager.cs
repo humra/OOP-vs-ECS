@@ -276,6 +276,11 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
         Application.Quit();
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     #endregion
 }
 
@@ -309,6 +314,7 @@ public interface IPauseMenuManager
 {
     void RestartGame();
     void QuitGame();
+    void MainMenu();
 }
 
 #endregion

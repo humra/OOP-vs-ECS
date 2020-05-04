@@ -119,6 +119,11 @@ public class UIManager : MonoBehaviour
         pauseMenuManager.QuitGame();
     }
 
+    public void MainMenu()
+    {
+        pauseMenuManager.MainMenu();
+    }
+
     public void GameOver(bool playerWon)
     {
         Time.timeScale = 0f;
