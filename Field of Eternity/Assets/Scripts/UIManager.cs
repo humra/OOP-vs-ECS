@@ -11,9 +11,8 @@ public class UIManager : MonoBehaviour
     private int selectedIndex = 0;
 
     private GameObject pauseUIParent;
-    private Button resumeBtn;
-    private Button restartBtn;
-    private Button quitBtn;
+    private GameObject gameOverUIParent;
+    private Text gameOverTxt;
 
     [SerializeField]
     private GameObject[] unitNumberSelectionPanels;
@@ -38,11 +37,11 @@ public class UIManager : MonoBehaviour
         playerSupplyText = GameObject.Find(UIComponentNames.playerSupplyText).GetComponent<Text>();
 
         pauseUIParent = GameObject.Find(UIComponentNames.pauseUIParent);
-        resumeBtn = GameObject.Find(UIComponentNames.resumeGameButton).GetComponent<Button>();
-        restartBtn = GameObject.Find(UIComponentNames.restartGameButton).GetComponent<Button>();
-        quitBtn = GameObject.Find(UIComponentNames.quitGameButton).GetComponent<Button>();
+        gameOverUIParent = GameObject.Find(UIComponentNames.gameOverUIParent);
+        gameOverTxt = GameObject.Find(UIComponentNames.gameOverText).GetComponent<Text>();
 
         pauseUIParent.SetActive(false);
+        gameOverUIParent.SetActive(false);
     }
 
     public void TogglePauseMenu()
@@ -118,5 +117,20 @@ public class UIManager : MonoBehaviour
     public void QuitGame()
     {
         pauseMenuManager.QuitGame();
+    }
+
+    public void GameOver(bool playerWon)
+    {
+        Time.timeScale = 0f;
+        gameOverUIParent.SetActive(true);
+
+        if(playerWon)
+        {
+            gameOverTxt.text = "VICTORY!";
+        }
+        else
+        {
+            gameOverTxt.text = "DEFEAT!";
+        }
     }
 }

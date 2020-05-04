@@ -60,7 +60,6 @@ public class Spawner : MonoBehaviour
     {
         if(ResourceTracker.ComputerSupplyCurrent < ResourceTracker.UnitSupplyCost[spawnableIndex])
         {
-            Debug.Log("Not enough resources to spawn computer units!");
             return false;
         }
 

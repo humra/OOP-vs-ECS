@@ -8,4 +8,6 @@
     public static string quitGameButton = "QuitBtn";
     public static string gameUIParent = "GameUI";
     public static string pauseUIParent = "PauseUI";
+    public static string gameOverUIParent = "EndGameUI";
+    public static string gameOverText = "GameOverTxt";
 }

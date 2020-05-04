@@ -88,14 +88,12 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
 
     private void AIWin()
     {
-        //TO-DO
-        Debug.Log("AI HAS WON!");
+        uiManager.GameOver(false);
     }
 
     private void PlayerWin()
     {
-        //TO-DO
-        Debug.Log("PLAYER HAS WON!");
+        uiManager.GameOver(true);
     }
 
     private void CheckForMissingComponents()
