@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SupplyManager : MonoBehaviour
 {
@@ -27,7 +28,10 @@ public class SupplyManager : MonoBehaviour
             ResourceTracker.ComputerSupplyCurrent = Mathf.Clamp(ResourceTracker.ComputerSupplyCurrent, 0, ResourceTracker.ComputerSupplyMax);
         }
 
-        supplyChange.ResupplyCompleted();
+        if(SceneManager.GetActiveScene().name.Equals("Playable"))
+        {
+            supplyChange.ResupplyCompleted();
+        }
     }
 
     public void SetSupplyChangeInterface(ISupplyChange supplyChange)
