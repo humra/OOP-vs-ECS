@@ -130,10 +130,10 @@ GameObject:
   m_Component:
   - component: {fileID: 58938974}
   - component: {fileID: 58938978}
-  - component: {fileID: 58938979}
   - component: {fileID: 58938976}
   - component: {fileID: 58938977}
   - component: {fileID: 58938975}
+  - component: {fileID: 58938979}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -232,9 +232,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 58938973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21a676aac7fc4fc48abbae06d94098e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 44e5c97a377ded54d8499cb5b30fc777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnInterval: 5
+  spawnUpgradeInterval: 5
 --- !u!1 &85454600
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,12 +2,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager_Demo_OOP : MonoBehaviour, IComputerManager, ISpawnManager, IPauseMenuManager
+public class GameManager_Demo_OOP : MonoBehaviour, ISpawnManager, IPauseMenuManager, IComputerManagerDemo, IUnitManager
 {
     private Spawner_Demo_OOP spawner;
     private UIManager_Demo_OOP uiManager;
+    private ComputerManager_Demo_OOP computerManager;
     private SupplyManager supplyManager;
-    private ComputerManager computerManager;
     private List<UnitAI> playerUnits;
     private List<UnitAI> computerUnits;
     private List<UnitAI> markedForRemoval;
@@ -19,7 +19,7 @@ public class GameManager_Demo_OOP : MonoBehaviour, IComputerManager, ISpawnManag
         spawner = GetComponent<Spawner_Demo_OOP>();
         uiManager = GetComponent<UIManager_Demo_OOP>();
         supplyManager = GetComponent<SupplyManager>();
-        computerManager = GetComponent<ComputerManager>();
+        computerManager = GetComponent<ComputerManager_Demo_OOP>();
 
         playerUnits = new List<UnitAI>();
         computerUnits = new List<UnitAI>();
@@ -31,10 +31,8 @@ public class GameManager_Demo_OOP : MonoBehaviour, IComputerManager, ISpawnManag
         supplyManager.StartResupplyForBoth();
         uiManager.LoadElements();
         uiManager.SetPauseMenuManager(this);
-        computerManager.SetComputerManagerInterface(this);
-        computerManager.SetLaneSpawnableUnitsLength(spawner.GetLaneLength(), spawner.GetComputerSpawnableUnitsLength());
-        computerManager.GenerateSpawns();
         spawner.SetSpawnerManagerInterface(this);
+        computerManager.SetComputerManagerInterface(this);
 
         InvokeRepeating("CheckForCombatEngagement", 3f, 1f);
     }
@@ -61,21 +59,33 @@ public class GameManager_Demo_OOP : MonoBehaviour, IComputerManager, ISpawnManag
         {
             Debug.LogError("GameManager.cs - Missing Component: SupplyManager");
         }
-        if (computerManager == null)
-        {
-            Debug.LogError("GameManager.cs - Missing Component: ComputerManager");
-        }
     }
 
-    public bool SpawnComputerUnit(int laneIndex, int spawnableUnitIndex)
+    public void SpawnComputerUnit(int laneIndex, int spawnableUnitIndex)
     {
-        return spawner.SpawnUnitComputer(laneIndex, spawnableUnitIndex);
+        spawner.SpawnUnitComputer(laneIndex, spawnableUnitIndex);
     }
 
     public void StopTrackingUnit(UnitAI unit)
     {
         playerUnits.Remove(unit);
     }
+
+    public void SpawnUnitsAllLanes(int spawnUnitIndex)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            spawner.SpawnUnitPlayer(i, spawnUnitIndex);
+            spawner.SpawnUnitComputer(i, spawnUnitIndex);
+        }
+    }
+
+    public int GetSpawnableUnitsLength()
+    {
+        return spawner.GetComputerSpawnableUnitsLength();
+    }
+
+    public void UnitReachedBase() { }
 
     #region UnitListManagement
 
@@ -223,4 +233,10 @@ public class GameManager_Demo_OOP : MonoBehaviour, IComputerManager, ISpawnManag
     }
 
     #endregion
+}
+
+public interface IComputerManagerDemo
+{
+    void SpawnUnitsAllLanes(int spawnUnitIndex);
+    int GetSpawnableUnitsLength();
 }

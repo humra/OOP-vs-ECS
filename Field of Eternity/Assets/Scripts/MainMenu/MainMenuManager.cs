@@ -12,4 +12,9 @@ public class MainMenuManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void Demo_OOP()
+    {
+        SceneManager.LoadScene("Demo_OOP");
+    }
 }
