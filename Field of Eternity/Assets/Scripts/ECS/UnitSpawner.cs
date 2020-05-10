@@ -18,6 +18,8 @@ public class UnitSpawner : MonoBehaviour
     [SerializeField]
     private float spawnCooldown = 5f;
     [SerializeField]
+    private float unitMovementSpeed = 3f;
+    [SerializeField]
     private int wavesBeforeIncrement = 3;
     [SerializeField]
     private int[] spawnsInWave = new int[] { 1, 9, 25, 100 };
@@ -101,9 +103,11 @@ public class UnitSpawner : MonoBehaviour
             {
                 Value =
                 new float3(zombieSpawnPoints[i].position.x,
-                zombieSpawnPoints[i].position.y,
+                zombieSpawnPoints[i].position.y + 0.5f,
                 zombieSpawnPoints[i].position.z)
             });
+            entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(0, 90, 0) });
+            entityManager.SetComponentData(entity, new MovementComponent { movementDirection = 1, movementSpeed = unitMovementSpeed });
             entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit01, material = material_unit01 });
         }
 
@@ -115,9 +119,11 @@ public class UnitSpawner : MonoBehaviour
             {
                 Value =
                 new float3(satyrSpawnPoints[i].position.x,
-                satyrSpawnPoints[i].position.y,
+                satyrSpawnPoints[i].position.y + 0.5f,
                 satyrSpawnPoints[i].position.z)
             });
+            entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(0, -90, 0) });
+            entityManager.SetComponentData(entity, new MovementComponent { movementDirection = -1, movementSpeed = unitMovementSpeed });
             entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit02, material = material_unit02 });
         }
 
@@ -151,11 +157,13 @@ public class UnitSpawner : MonoBehaviour
                     Entity entity = zombieArray[currentIndex];
 
                     entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit01, material = material_unit01 });
+                    entityManager.SetComponentData(entity, new MovementComponent { movementDirection = 1, movementSpeed = unitMovementSpeed });
                     entityManager.SetComponentData(entity, new Translation
                     {
                         Value =
-                        new float3(zombieSpawnPoints[k].position.x + (i * 2), zombieSpawnPoints[k].position.y, zombieSpawnPoints[k].position.z + (j * 2))
+                        new float3(zombieSpawnPoints[k].position.x + (i * 2), zombieSpawnPoints[k].position.y + 0.5f, zombieSpawnPoints[k].position.z + (j * 2))
                     });
+                    entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(0, 90, 0) });
 
                     currentIndex++;
                 }
@@ -173,11 +181,13 @@ public class UnitSpawner : MonoBehaviour
                     Entity entity = satyrArray[currentIndex];
 
                     entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit02, material = material_unit02 });
+                    entityManager.SetComponentData(entity, new MovementComponent { movementDirection = -1, movementSpeed = unitMovementSpeed });
                     entityManager.SetComponentData(entity, new Translation
                     {
                         Value =
-                        new float3(satyrSpawnPoints[k].position.x + (i * 2), satyrSpawnPoints[k].position.y, satyrSpawnPoints[k].position.z + (j * 2))
+                        new float3(satyrSpawnPoints[k].position.x + (i * 2), satyrSpawnPoints[k].position.y + 0.5f, satyrSpawnPoints[k].position.z + (j * 2))
                     });
+                    entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(0, -90, 0) } );
 
                     currentIndex++;
                 }
@@ -206,12 +216,16 @@ public class UnitSpawner : MonoBehaviour
             typeof(Translation),
             typeof(RenderMesh),
             typeof(LocalToWorld),
-            typeof(RenderBounds));
+            typeof(RenderBounds),
+            typeof(Rotation),
+            typeof(MovementComponent));
 
         archetype_unit02 = entityManager.CreateArchetype(
             typeof(Translation),
             typeof(RenderMesh),
             typeof(LocalToWorld),
-            typeof(RenderBounds));
+            typeof(RenderBounds),
+            typeof(Rotation),
+            typeof(MovementComponent));
     }
 }

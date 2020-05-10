@@ -226,6 +226,7 @@ MonoBehaviour:
   material_unit01: {fileID: 2100000, guid: 7e2e251fd944c1642a6c940109f96e9a, type: 2}
   material_unit02: {fileID: 2100000, guid: 53bd496f5cb92bf4aa73bd316d5f8ab9, type: 2}
   spawnCooldown: 3
+  unitMovementSpeed: 3
   wavesBeforeIncrement: 3
   spawnsInWave: 01000000090000001900000064000000
   zombieSpawnPoints:
@@ -244,7 +245,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12682753}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.8987055, y: -4.546669, z: 1.2444954}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -596,7 +597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panSpeed: 20
   panBorderThickness: 10
-  panClampLimit: {x: 120, y: 120}
+  panClampLimit: {x: 150, y: 120}
   scrollSpeed: 20
   minY: 10
   maxY: 100
