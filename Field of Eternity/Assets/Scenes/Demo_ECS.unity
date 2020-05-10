@@ -225,9 +225,9 @@ MonoBehaviour:
     type: 3}
   material_unit01: {fileID: 2100000, guid: 7e2e251fd944c1642a6c940109f96e9a, type: 2}
   material_unit02: {fileID: 2100000, guid: 53bd496f5cb92bf4aa73bd316d5f8ab9, type: 2}
-  spawnCooldown: 3
+  spawnCooldown: 5
   unitMovementSpeed: 3
-  wavesBeforeIncrement: 3
+  wavesBeforeIncrement: 5
   spawnsInWave: 01000000090000001900000064000000
   zombieSpawnPoints:
   - {fileID: 231116572}
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c8fbfa01bdb3e4f9115e12c8c71ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 20
+  panSpeed: 30
   panBorderThickness: 10
   panClampLimit: {x: 150, y: 120}
   scrollSpeed: 20

@@ -1211,7 +1211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c8fbfa01bdb3e4f9115e12c8c71ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 20
+  panSpeed: 30
   panBorderThickness: 10
   panClampLimit: {x: 100, y: 100}
   scrollSpeed: 20
