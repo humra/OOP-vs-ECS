@@ -19,7 +19,7 @@ public class Spawner_Demo_OOP : MonoBehaviour
 
         if (spawnableIndex == 0)
         {
-            GameObject newUnit = Instantiate(spawnableUnits[spawnableIndex], playerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
+            GameObject newUnit = Instantiate(spawnableUnits[spawnableIndex], playerSpawnPoints[laneIndex].transform.position, spawnableUnits[spawnableIndex].transform.rotation);
             newUnit.GetComponent<UnitAI>().SetTarget(computerSpawnPoints[laneIndex].transform);
             newUnit.GetComponent<UnitAI>().SetPlayerOwned(true);
             newUnit.GetComponent<UnitAI>().unitManager = FindObjectOfType<GameManager_Demo_OOP>();
@@ -27,7 +27,7 @@ public class Spawner_Demo_OOP : MonoBehaviour
         }
         else
         {
-            GameObject spawnGroup = Instantiate(spawnableUnits[spawnableIndex], playerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
+            GameObject spawnGroup = Instantiate(spawnableUnits[spawnableIndex], playerSpawnPoints[laneIndex].transform.position, spawnableUnits[spawnableIndex].transform.rotation);
             UnitAI[] groupMembers = spawnGroup.GetComponentsInChildren<UnitAI>();
             spawnGroup.GetComponent<UnitGroupDestroyer>().SetActiveUnitsCount(groupMembers.Length);
             spawnManager.AddPlayerUnits(groupMembers);
@@ -46,7 +46,7 @@ public class Spawner_Demo_OOP : MonoBehaviour
     {
         if (spawnableIndex == 0)
         {
-            GameObject newUnit = Instantiate(spawnableComputerUnits[spawnableIndex], computerSpawnPoints[laneIndex].transform.position, Quaternion.identity);
+            GameObject newUnit = Instantiate(spawnableComputerUnits[spawnableIndex], computerSpawnPoints[laneIndex].transform.position, Quaternion.identity); 
             newUnit.GetComponent<UnitAI>().SetTarget(playerSpawnPoints[laneIndex].transform);
             newUnit.GetComponent<UnitAI>().SetPlayerOwned(false);
             newUnit.GetComponent<UnitAI>().unitManager = FindObjectOfType<GameManager_Demo_OOP>();

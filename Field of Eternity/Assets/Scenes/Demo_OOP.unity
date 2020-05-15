@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 1
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 2fa2e84966993e447a83592eacfb9f23, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b6ec12a25d71be14a8d285dc01338631, type: 2}
 --- !u!1 &58938973
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,15 +177,15 @@ MonoBehaviour:
   - {fileID: 1319533444}
   - {fileID: 896094319}
   spawnableUnits:
-  - {fileID: 5037968483323974137, guid: 88dcf82c10052824d8947c6e63a1ace7, type: 3}
-  - {fileID: 2785226956498628933, guid: 647384db510a6014197eedaa6cab1959, type: 3}
-  - {fileID: 4647952991862027031, guid: 680c7d0b3a2daa24e8c50875f6e1341c, type: 3}
-  - {fileID: 4499014872753121573, guid: e945de9791eb0984981303bc6f43e97f, type: 3}
+  - {fileID: 1807896483295724, guid: dd5cc5afc7a95424ba3a817d78c1642f, type: 3}
+  - {fileID: 3620282766420433663, guid: 6ee5023bea29007428b0d85199606e01, type: 3}
+  - {fileID: 5236945006423626326, guid: 8bb8a0efcd80685418e60c36d02888fe, type: 3}
+  - {fileID: 5776367808979253731, guid: 9fda63c1ed672454b9f62e5e4a92a1db, type: 3}
   spawnableComputerUnits:
-  - {fileID: 2220249634266870569, guid: 166b943bdafe96346891b186bf04a954, type: 3}
-  - {fileID: 892519350790527132, guid: 7218910234f7ebd40ba1b60ecc32d9e7, type: 3}
-  - {fileID: 1287397783961122996, guid: 4a23962e326ffa44f9279237a8945632, type: 3}
-  - {fileID: 7701964575327622635, guid: 239bfda208216814192a954903497201, type: 3}
+  - {fileID: 1061446862257190225, guid: 98e88f1a6c1bb794db237562c45c857d, type: 3}
+  - {fileID: 5702235364454849055, guid: f3e6aa496b4ab0c45bc588e2ebab419c, type: 3}
+  - {fileID: 4200874380444621653, guid: 1476e4c402f708e43afa105241a2f91f, type: 3}
+  - {fileID: 5551289121214991568, guid: 25f6fc63ebd09d14aaf52a7d5ae033cb, type: 3}
 --- !u!114 &58938976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,7 +879,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639950700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -125, y: 0.5, z: 50}
+  m_LocalPosition: {x: -150, y: 0.5, z: 70}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 85454601}
@@ -1079,7 +1079,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885709298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -125, y: 0.5, z: 0}
+  m_LocalPosition: {x: -150, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 85454601}
@@ -1109,7 +1109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896094319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 125, y: 0.5, z: 50}
+  m_LocalPosition: {x: 150, y: 0.5, z: 70}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 85454601}
@@ -1213,10 +1213,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panSpeed: 30
   panBorderThickness: 10
-  panClampLimit: {x: 100, y: 100}
+  panClampLimit: {x: 200, y: 200}
   scrollSpeed: 20
   minY: 10
-  maxY: 100
+  maxY: 150
   mouseCameraPan: 0
 --- !u!1 &1230058692
 GameObject:
@@ -1372,7 +1372,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319533444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 125, y: 0.5, z: 0}
+  m_LocalPosition: {x: 150, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 85454601}
@@ -1571,7 +1571,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831361031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 125, y: 0.5, z: -50}
+  m_LocalPosition: {x: 150, y: 0.5, z: -60}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 85454601}
@@ -1679,7 +1679,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045808421}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -125, y: 0.5, z: -50}
+  m_LocalPosition: {x: -150, y: 0.5, z: -60}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 85454601}
@@ -1696,6 +1696,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Terrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926760493253130671, guid: e4e8524428b411747a881fdea8694068,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5926760493253130672, guid: e4e8524428b411747a881fdea8694068,
         type: 3}

@@ -6,7 +6,6 @@ public class UnitAI : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private Transform target;
     private bool playerOwned;
-    private Animator animator;
     private bool groupMember = false;
     private bool dead = false;
     private UnitAI targetEnemy;
@@ -29,16 +28,11 @@ public class UnitAI : MonoBehaviour
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
 
         if(navMeshAgent == null)
         {
             Debug.LogError("UnitAI - NavMeshAgent not found on " + gameObject.name);
             Destroy(gameObject);
-        }
-        if(animator == null)
-        {
-            Debug.LogError("UnitAI - Animator not found on " + gameObject.name);
         }
 
         navMeshAgent.Warp(transform.position);
@@ -54,8 +48,6 @@ public class UnitAI : MonoBehaviour
             unitManager.StopTrackingUnit(this);
             Destroy(gameObject);
         }
-
-        animator.SetFloat("MovementSpeed", navMeshAgent.speed);
 
         if(!readyForCombat)
         {
@@ -96,7 +88,6 @@ public class UnitAI : MonoBehaviour
     public void EngageTarget(UnitAI enemyUnit)
     {
         inCombat = true;
-        animator.SetBool("InCombat", inCombat);
         targetEnemy = enemyUnit;
         InvokeRepeating("AttackEnemy", 0.1f, 1 / attackSpeed);
         navMeshAgent.isStopped = true;
@@ -110,7 +101,6 @@ public class UnitAI : MonoBehaviour
             targetEnemy = null;
             WalkToTarget();
             CancelInvoke("AttackEnemy");
-            animator.SetBool("InCombat", inCombat);
         }
     }
 
