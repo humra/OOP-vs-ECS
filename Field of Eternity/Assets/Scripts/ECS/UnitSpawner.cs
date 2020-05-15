@@ -24,9 +24,9 @@ public class UnitSpawner : MonoBehaviour
     [SerializeField]
     private int[] spawnsInWave = new int[] { 1, 9, 25, 100 };
     [SerializeField]
-    private Transform[] zombieSpawnPoints;
+    private Transform[] player1SpawnPoints;
     [SerializeField]
-    private Transform[] satyrSpawnPoints;
+    private Transform[] player2SpawnPoints;
 
     private EntityManager entityManager;
     private EntityArchetype archetype_unit01;
@@ -89,46 +89,46 @@ public class UnitSpawner : MonoBehaviour
 
     private void SpawnSingleUnit()
     {
-        NativeArray<Entity> zombieArray = new NativeArray<Entity>(zombieSpawnPoints.Length, Allocator.Temp);
-        NativeArray<Entity> satyrArray = new NativeArray<Entity>(satyrSpawnPoints.Length, Allocator.Temp);
+        NativeArray<Entity> units01Array = new NativeArray<Entity>(player1SpawnPoints.Length, Allocator.Temp);
+        NativeArray<Entity> units02Array = new NativeArray<Entity>(player2SpawnPoints.Length, Allocator.Temp);
 
-        entityManager.CreateEntity(archetype_unit01, zombieArray);
-        entityManager.CreateEntity(archetype_unit02, satyrArray);
+        entityManager.CreateEntity(archetype_unit01, units01Array);
+        entityManager.CreateEntity(archetype_unit02, units02Array);
 
-        for (int i = 0; i < zombieSpawnPoints.Length; i++)
+        for (int i = 0; i < player1SpawnPoints.Length; i++)
         {
-            Entity entity = zombieArray[i];
+            Entity entity = units01Array[i];
 
             entityManager.SetComponentData(entity, new Translation
             {
                 Value =
-                new float3(zombieSpawnPoints[i].position.x,
-                zombieSpawnPoints[i].position.y + 0.5f,
-                zombieSpawnPoints[i].position.z)
+                new float3(player1SpawnPoints[i].position.x,
+                player1SpawnPoints[i].position.y + 0.5f,
+                player1SpawnPoints[i].position.z)
             });
-            entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(0, 90, 0) });
+            entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(-90, 90, 0) });
             entityManager.SetComponentData(entity, new MovementComponent { movementDirection = 1, movementSpeed = unitMovementSpeed });
             entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit01, material = material_unit01 });
         }
 
-        for (int i = 0; i < satyrSpawnPoints.Length; i++)
+        for (int i = 0; i < player2SpawnPoints.Length; i++)
         {
-            Entity entity = satyrArray[i];
+            Entity entity = units02Array[i];
 
             entityManager.SetComponentData(entity, new Translation
             {
                 Value =
-                new float3(satyrSpawnPoints[i].position.x,
-                satyrSpawnPoints[i].position.y + 0.5f,
-                satyrSpawnPoints[i].position.z)
+                new float3(player2SpawnPoints[i].position.x,
+                player2SpawnPoints[i].position.y + 0.5f,
+                player2SpawnPoints[i].position.z)
             });
-            entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(0, -90, 0) });
+            entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(90, 90, 0) });
             entityManager.SetComponentData(entity, new MovementComponent { movementDirection = -1, movementSpeed = unitMovementSpeed });
             entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit02, material = material_unit02 });
         }
 
-        zombieArray.Dispose();
-        satyrArray.Dispose();
+        units01Array.Dispose();
+        units02Array.Dispose();
     }
 
     private void SpawnMultipleUnits(int amount)
@@ -140,30 +140,30 @@ public class UnitSpawner : MonoBehaviour
             return;
         }
 
-        NativeArray<Entity> zombieArray = new NativeArray<Entity>(zombieSpawnPoints.Length * amount, Allocator.Temp);
-        NativeArray<Entity> satyrArray = new NativeArray<Entity>(satyrSpawnPoints.Length * amount, Allocator.Temp);
+        NativeArray<Entity> units01Array = new NativeArray<Entity>(player1SpawnPoints.Length * amount, Allocator.Temp);
+        NativeArray<Entity> units02Array = new NativeArray<Entity>(player2SpawnPoints.Length * amount, Allocator.Temp);
 
-        entityManager.CreateEntity(archetype_unit01, zombieArray);
-        entityManager.CreateEntity(archetype_unit02, satyrArray);
+        entityManager.CreateEntity(archetype_unit01, units01Array);
+        entityManager.CreateEntity(archetype_unit02, units02Array);
 
         int currentIndex = 0;
 
-        for(int k = 0; k < zombieSpawnPoints.Length; k++)
+        for(int k = 0; k < player1SpawnPoints.Length; k++)
         {
             for (int i = 0; i < root; i++)
             {
                 for (int j = 0; j < root; j++)
                 {
-                    Entity entity = zombieArray[currentIndex];
+                    Entity entity = units01Array[currentIndex];
 
                     entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit01, material = material_unit01 });
                     entityManager.SetComponentData(entity, new MovementComponent { movementDirection = 1, movementSpeed = unitMovementSpeed });
                     entityManager.SetComponentData(entity, new Translation
                     {
                         Value =
-                        new float3(zombieSpawnPoints[k].position.x + (i * 2), zombieSpawnPoints[k].position.y + 0.5f, zombieSpawnPoints[k].position.z + (j * 2))
+                        new float3(player1SpawnPoints[k].position.x + (i * 4), player1SpawnPoints[k].position.y + 0.5f, player1SpawnPoints[k].position.z + (j * 4))
                     });
-                    entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(0, 90, 0) });
+                    entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(-90, 90, 0) });
 
                     currentIndex++;
                 }
@@ -172,30 +172,30 @@ public class UnitSpawner : MonoBehaviour
 
         currentIndex = 0;
 
-        for (int k = 0; k < satyrSpawnPoints.Length; k++)
+        for (int k = 0; k < player2SpawnPoints.Length; k++)
         {
             for (int i = 0; i < root; i++)
             {
                 for (int j = 0; j < root; j++)
                 {
-                    Entity entity = satyrArray[currentIndex];
+                    Entity entity = units02Array[currentIndex];
 
                     entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit02, material = material_unit02 });
                     entityManager.SetComponentData(entity, new MovementComponent { movementDirection = -1, movementSpeed = unitMovementSpeed });
                     entityManager.SetComponentData(entity, new Translation
                     {
                         Value =
-                        new float3(satyrSpawnPoints[k].position.x + (i * 2), satyrSpawnPoints[k].position.y + 0.5f, satyrSpawnPoints[k].position.z + (j * 2))
+                        new float3(player2SpawnPoints[k].position.x + (i * 4), player2SpawnPoints[k].position.y + 0.5f, player2SpawnPoints[k].position.z + (j * 4))
                     });
-                    entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(0, -90, 0) } );
+                    entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(90, 90, 0) } );
 
                     currentIndex++;
                 }
             }
         }
 
-        zombieArray.Dispose();
-        satyrArray.Dispose();
+        units01Array.Dispose();
+        units02Array.Dispose();
     }
 
     private void CheckForUnassignedComponents()
