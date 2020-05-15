@@ -91,6 +91,7 @@ public class UnitAI : MonoBehaviour
         targetEnemy = enemyUnit;
         InvokeRepeating("AttackEnemy", 0.1f, 1 / attackSpeed);
         navMeshAgent.isStopped = true;
+        navMeshAgent.velocity = Vector3.zero;
     }
 
     private void AttackEnemy()
