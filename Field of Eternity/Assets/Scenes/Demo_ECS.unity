@@ -155,7 +155,7 @@ MonoBehaviour:
   material_unit01: {fileID: 2100000, guid: 80aee737907c0e44a8938d8a0e3c0dd6, type: 2}
   material_unit02: {fileID: 2100000, guid: cb6281135d391d243a2361c53acc0816, type: 2}
   spawnCooldown: 5
-  unitMovementSpeed: 3
+  unitMovementSpeed: 10
   wavesBeforeIncrement: 5
   spawnsInWave: 01000000090000001900000064000000
   player1SpawnPoints:
@@ -166,6 +166,8 @@ MonoBehaviour:
   - {fileID: 379534125}
   - {fileID: 791937603}
   - {fileID: 576792317}
+  player1BaseCollider: {fileID: 1124173494}
+  player2BaseCollider: {fileID: 1789716004}
 --- !u!4 &12682755
 Transform:
   m_ObjectHideFlags: 0
@@ -474,6 +476,12 @@ MonoBehaviour:
   minY: 10
   maxY: 100
   mouseCameraPan: 0
+--- !u!65 &1124173494 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 5926760492307892581, guid: e4e8524428b411747a881fdea8694068,
+    type: 3}
+  m_PrefabInstance: {fileID: 562284441}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1602115841 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4345859530844400763, guid: 9edb9a9c1d82a0a46adce90c5bd47593,
@@ -569,3 +577,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9edb9a9c1d82a0a46adce90c5bd47593, type: 3}
+--- !u!65 &1789716004 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 5926760491684530352, guid: e4e8524428b411747a881fdea8694068,
+    type: 3}
+  m_PrefabInstance: {fileID: 562284441}
+  m_PrefabAsset: {fileID: 0}

@@ -27,6 +27,10 @@ public class UnitSpawner : MonoBehaviour
     private Transform[] player1SpawnPoints;
     [SerializeField]
     private Transform[] player2SpawnPoints;
+    [SerializeField]
+    private BoxCollider player1BaseCollider;
+    [SerializeField]
+    private BoxCollider player2BaseCollider;
 
     private EntityManager entityManager;
     private EntityArchetype archetype_unit01;
@@ -109,6 +113,15 @@ public class UnitSpawner : MonoBehaviour
             entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(-90, 90, 0) });
             entityManager.SetComponentData(entity, new MovementComponent { movementDirection = 1, movementSpeed = unitMovementSpeed });
             entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit01, material = material_unit01 });
+            entityManager.SetComponentData(entity, new CollisionComponent
+            {
+                maxX = player2BaseCollider.bounds.max.x,
+                maxY = player2BaseCollider.bounds.max.y,
+                maxZ = player2BaseCollider.bounds.max.z,
+                minX = player2BaseCollider.bounds.min.x,
+                minY = player2BaseCollider.bounds.min.y,
+                minZ = player2BaseCollider.bounds.min.z
+            });
         }
 
         for (int i = 0; i < player2SpawnPoints.Length; i++)
@@ -125,6 +138,15 @@ public class UnitSpawner : MonoBehaviour
             entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(90, 90, 0) });
             entityManager.SetComponentData(entity, new MovementComponent { movementDirection = -1, movementSpeed = unitMovementSpeed });
             entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit02, material = material_unit02 });
+            entityManager.SetComponentData(entity, new CollisionComponent
+            {
+                maxX = player1BaseCollider.bounds.max.x,
+                maxY = player1BaseCollider.bounds.max.y,
+                maxZ = player1BaseCollider.bounds.max.z,
+                minX = player1BaseCollider.bounds.min.x,
+                minY = player1BaseCollider.bounds.min.y,
+                minZ = player1BaseCollider.bounds.min.z
+            });
         }
 
         units01Array.Dispose();
@@ -164,7 +186,15 @@ public class UnitSpawner : MonoBehaviour
                         new float3(player1SpawnPoints[k].position.x + (i * 4), player1SpawnPoints[k].position.y + 0.5f, player1SpawnPoints[k].position.z + (j * 4))
                     });
                     entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(-90, 90, 0) });
-
+                    entityManager.SetComponentData(entity, new CollisionComponent
+                    {
+                        maxX = player2BaseCollider.bounds.max.x,
+                        maxY = player2BaseCollider.bounds.max.y,
+                        maxZ = player2BaseCollider.bounds.max.z,
+                        minX = player2BaseCollider.bounds.min.x,
+                        minY = player2BaseCollider.bounds.min.y,
+                        minZ = player2BaseCollider.bounds.min.z
+                    });
                     currentIndex++;
                 }
             }
@@ -188,7 +218,15 @@ public class UnitSpawner : MonoBehaviour
                         new float3(player2SpawnPoints[k].position.x + (i * 4), player2SpawnPoints[k].position.y + 0.5f, player2SpawnPoints[k].position.z + (j * 4))
                     });
                     entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(90, 90, 0) } );
-
+                    entityManager.SetComponentData(entity, new CollisionComponent
+                    {
+                        maxX = player1BaseCollider.bounds.max.x,
+                        maxY = player1BaseCollider.bounds.max.y,
+                        maxZ = player1BaseCollider.bounds.max.z,
+                        minX = player1BaseCollider.bounds.min.x,
+                        minY = player1BaseCollider.bounds.min.y,
+                        minZ = player1BaseCollider.bounds.min.z
+                    });
                     currentIndex++;
                 }
             }
@@ -218,7 +256,8 @@ public class UnitSpawner : MonoBehaviour
             typeof(LocalToWorld),
             typeof(RenderBounds),
             typeof(Rotation),
-            typeof(MovementComponent));
+            typeof(MovementComponent),
+            typeof(CollisionComponent));
 
         archetype_unit02 = entityManager.CreateArchetype(
             typeof(Translation),
@@ -226,6 +265,7 @@ public class UnitSpawner : MonoBehaviour
             typeof(LocalToWorld),
             typeof(RenderBounds),
             typeof(Rotation),
-            typeof(MovementComponent));
+            typeof(MovementComponent),
+            typeof(CollisionComponent));
     }
 }
