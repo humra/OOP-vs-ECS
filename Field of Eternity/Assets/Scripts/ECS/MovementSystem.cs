@@ -5,9 +5,12 @@ public class MovementSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {
-        Entities.ForEach((ref MovementComponent movement, ref Translation translation) =>
+        Entities.ForEach((ref MovementComponent movement, ref Translation translation, ref CombatStatsComponent combat) =>
         {
-            translation.Value.x += movement.movementSpeed * movement.movementDirection * Time.DeltaTime;
+            if(!combat.inCombat)
+            {
+                translation.Value.x += movement.movementSpeed * movement.movementDirection * Time.DeltaTime;
+            }
         });
     }
 }

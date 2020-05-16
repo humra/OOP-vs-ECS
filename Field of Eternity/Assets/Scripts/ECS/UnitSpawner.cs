@@ -47,7 +47,7 @@ public class UnitSpawner : MonoBehaviour
 
         CheckForUnassignedComponents();
         CreateArchtypes();
-        spawnTimer = spawnCooldown;
+        spawnTimer = 1;
         maxWave = spawnsInWave.Length - 1;
         currentSpawnInWave = 1;
     }
@@ -122,6 +122,17 @@ public class UnitSpawner : MonoBehaviour
                 minY = player2BaseCollider.bounds.min.y,
                 minZ = player2BaseCollider.bounds.min.z
             });
+            entityManager.SetComponentData(entity, new CombatStatsComponent
+            {
+                health = UnitStats.health,
+                damage = UnitStats.damage,
+                engageRange = UnitStats.engageRange,
+                attackCooldown = UnitStats.attackCooldown,
+                inCombat = false,
+                team = 1
+            });
+            
+            CombatSystem.player1Entities.Add(entity);
         }
 
         for (int i = 0; i < player2SpawnPoints.Length; i++)
@@ -147,6 +158,17 @@ public class UnitSpawner : MonoBehaviour
                 minY = player1BaseCollider.bounds.min.y,
                 minZ = player1BaseCollider.bounds.min.z
             });
+            entityManager.SetComponentData(entity, new CombatStatsComponent
+            {
+                health = UnitStats.health,
+                damage = UnitStats.damage,
+                engageRange = UnitStats.engageRange,
+                attackCooldown = UnitStats.attackCooldown,
+                inCombat = false,
+                team = 2
+            });
+
+            CombatSystem.player2Entities.Add(entity);
         }
 
         units01Array.Dispose();
@@ -195,6 +217,17 @@ public class UnitSpawner : MonoBehaviour
                         minY = player2BaseCollider.bounds.min.y,
                         minZ = player2BaseCollider.bounds.min.z
                     });
+                    entityManager.SetComponentData(entity, new CombatStatsComponent
+                    {
+                        health = UnitStats.health,
+                        damage = UnitStats.damage,
+                        engageRange = UnitStats.engageRange,
+                        attackCooldown = UnitStats.attackCooldown,
+                        inCombat = false,
+                        team = 1
+                    });
+
+                    CombatSystem.player1Entities.Add(entity);
                     currentIndex++;
                 }
             }
@@ -227,6 +260,17 @@ public class UnitSpawner : MonoBehaviour
                         minY = player1BaseCollider.bounds.min.y,
                         minZ = player1BaseCollider.bounds.min.z
                     });
+                    entityManager.SetComponentData(entity, new CombatStatsComponent
+                    {
+                        health = UnitStats.health,
+                        damage = UnitStats.damage,
+                        engageRange = UnitStats.engageRange,
+                        attackCooldown = UnitStats.attackCooldown,
+                        inCombat = false,
+                        team = 2
+                    });
+
+                    CombatSystem.player2Entities.Add(entity);
                     currentIndex++;
                 }
             }
@@ -257,7 +301,8 @@ public class UnitSpawner : MonoBehaviour
             typeof(RenderBounds),
             typeof(Rotation),
             typeof(MovementComponent),
-            typeof(CollisionComponent));
+            typeof(CollisionComponent),
+            typeof(CombatStatsComponent));
 
         archetype_unit02 = entityManager.CreateArchetype(
             typeof(Translation),
@@ -266,6 +311,7 @@ public class UnitSpawner : MonoBehaviour
             typeof(RenderBounds),
             typeof(Rotation),
             typeof(MovementComponent),
-            typeof(CollisionComponent));
+            typeof(CollisionComponent),
+            typeof(CombatStatsComponent));
     }
 }

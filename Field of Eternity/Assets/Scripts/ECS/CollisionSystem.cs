@@ -21,6 +21,14 @@ public class CollisionSystem : ComponentSystem
             && collisionComponent.minZ <= translation.Value.z && translation.Value.z <= collisionComponent.maxZ)
             {
                 entitiesToDelete.Add(entity);
+                if(CombatSystem.player1Entities.Contains(entity))
+                {
+                    CombatSystem.player1Entities.Remove(entity);
+                }
+                else if(CombatSystem.player2Entities.Contains(entity))
+                {
+                    CombatSystem.player2Entities.Remove(entity);
+                }
             }
         });
 

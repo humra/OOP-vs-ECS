@@ -155,7 +155,7 @@ MonoBehaviour:
   material_unit01: {fileID: 2100000, guid: 80aee737907c0e44a8938d8a0e3c0dd6, type: 2}
   material_unit02: {fileID: 2100000, guid: cb6281135d391d243a2361c53acc0816, type: 2}
   spawnCooldown: 5
-  unitMovementSpeed: 10
+  unitMovementSpeed: 3
   wavesBeforeIncrement: 5
   spawnsInWave: 01000000090000001900000064000000
   player1SpawnPoints:
@@ -471,8 +471,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panSpeed: 30
   panBorderThickness: 10
-  panClampLimit: {x: 150, y: 120}
-  scrollSpeed: 20
+  panClampLimit: {x: 200, y: 200}
+  scrollSpeed: 30
   minY: 10
   maxY: 100
   mouseCameraPan: 0
