@@ -17,4 +17,9 @@ public class MainMenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Demo_OOP");
     }
+
+    public void Demo_ECS()
+    {
+        SceneManager.LoadScene("Demo_ECS");
+    }
 }

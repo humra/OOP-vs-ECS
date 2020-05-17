@@ -50,6 +50,7 @@ public class UnitSpawner : MonoBehaviour
         spawnTimer = spawnCooldown;
         maxWave = spawnsInWave.Length - 1;
         currentSpawnInWave = 1;
+        Time.timeScale = 1f;
     }
 
     private void Update()
