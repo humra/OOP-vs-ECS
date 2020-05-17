@@ -11,6 +11,8 @@ public class GameManager_Demo_OOP : MonoBehaviour, ISpawnManager, IPauseMenuMana
     private List<UnitAI> playerUnits;
     private List<UnitAI> computerUnits;
     private List<UnitAI> markedForRemoval;
+    private Vector3 unitPosition;
+    private float engageRange;
 
     private void Start()
     {
@@ -151,8 +153,8 @@ public class GameManager_Demo_OOP : MonoBehaviour, ISpawnManager, IPauseMenuMana
                 continue;
             }
 
-            Vector3 unitPosition = playerUnits[i].transform.position;
-            float engageRange = playerUnits[i].GetEngageRange();
+            unitPosition = playerUnits[i].transform.position;
+            engageRange = playerUnits[i].GetEngageRange();
 
             for (int j = 0; j < computerUnits.Count; j++)
             {
@@ -178,8 +180,8 @@ public class GameManager_Demo_OOP : MonoBehaviour, ISpawnManager, IPauseMenuMana
                 continue;
             }
 
-            Vector3 unitPosition = computerUnits[i].transform.position;
-            float engageRange = computerUnits[i].GetEngageRange();
+            unitPosition = computerUnits[i].transform.position;
+            engageRange = computerUnits[i].GetEngageRange();
 
             for (int j = 0; j < playerUnits.Count; j++)
             {
