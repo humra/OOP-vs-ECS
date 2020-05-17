@@ -13,6 +13,7 @@ public class CombatSystem : ComponentSystem
 
     private CombatStatsComponent attackerStats;
     private CombatStatsComponent defenderStats;
+    private float3 attackerPosition;
 
     protected override void OnCreate()
     {
@@ -28,10 +29,11 @@ public class CombatSystem : ComponentSystem
 
             if(!attackerStats.inCombat)
             {
+                attackerPosition = entityManager.GetComponentData<Translation>(player1Entities[i]).Value;
+
                 for(int j = 0; j < player2Entities.Count; j++)
                 {
-                    float distance = math.distance(entityManager.GetComponentData<Translation>(player1Entities[i]).Value,
-                        entityManager.GetComponentData<Translation>(player2Entities[j]).Value);
+                    float distance = math.distance(attackerPosition, entityManager.GetComponentData<Translation>(player2Entities[j]).Value);
 
                     if(distance <= attackerStats.engageRange)
                     {
@@ -71,10 +73,11 @@ public class CombatSystem : ComponentSystem
 
             if (!attackerStats.inCombat)
             {
+                attackerPosition = entityManager.GetComponentData<Translation>(player2Entities[i]).Value;
+
                 for (int j = 0; j < player1Entities.Count; j++)
                 {
-                    float distance = math.distance(entityManager.GetComponentData<Translation>(player2Entities[i]).Value,
-                        entityManager.GetComponentData<Translation>(player1Entities[j]).Value);
+                    float distance = math.distance(attackerPosition, entityManager.GetComponentData<Translation>(player1Entities[j]).Value);
 
                     if (distance <= attackerStats.engageRange)
                     {
