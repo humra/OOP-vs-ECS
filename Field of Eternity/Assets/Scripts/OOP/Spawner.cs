@@ -34,6 +34,7 @@ public class Spawner : MonoBehaviour
             newUnit.GetComponent<UnitAI>().SetTarget(computerSpawnPoints[activePlayerLaneIndex].transform);
             newUnit.GetComponent<UnitAI>().SetPlayerOwned(true);
             newUnit.GetComponent<UnitAI>().unitManager = FindObjectOfType<GameManager>();
+            newUnit.GetComponent<UnitAI>().laneIndex = activePlayerLaneIndex;
             spawnManager.AddPlayerUnit(newUnit.GetComponent<UnitAI>());
         }
         else
@@ -49,6 +50,7 @@ public class Spawner : MonoBehaviour
                 groupMembers[i].SetPlayerOwned(true);
                 groupMembers[i].SetGroupMember(true);
                 groupMembers[i].unitManager = FindObjectOfType<GameManager>();
+                groupMembers[i].laneIndex = activePlayerLaneIndex;
             }
         }
 
@@ -69,6 +71,7 @@ public class Spawner : MonoBehaviour
             newUnit.GetComponent<UnitAI>().SetTarget(playerSpawnPoints[laneIndex].transform);
             newUnit.GetComponent<UnitAI>().SetPlayerOwned(false);
             newUnit.GetComponent<UnitAI>().unitManager = FindObjectOfType<GameManager>();
+            newUnit.GetComponent<UnitAI>().laneIndex = laneIndex;
             spawnManager.AddComputerUnit(newUnit.GetComponent<UnitAI>());
         }
         else
@@ -84,6 +87,7 @@ public class Spawner : MonoBehaviour
                 groupMemebers[i].SetPlayerOwned(false);
                 groupMemebers[i].SetGroupMember(true);
                 groupMemebers[i].unitManager = FindObjectOfType<GameManager>();
+                groupMemebers[i].laneIndex = laneIndex;
             }
         }
 

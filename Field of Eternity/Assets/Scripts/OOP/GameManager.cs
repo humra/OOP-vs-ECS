@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
 
             for (int j = 0; j < computerUnits.Count; j++)
             {
-                if (computerUnits[j] == null)
+                if (computerUnits[j] == null || (computerUnits[j].laneIndex != playerUnits[i].laneIndex))
                 {
                     continue;
                 }
@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour, IUnitManager, ISupplyChange, IComputer
 
             for (int j = 0; j < playerUnits.Count; j++)
             {
-                if (playerUnits[j] == null)
+                if (playerUnits[j] == null || (playerUnits[j].laneIndex != computerUnits[i].laneIndex))
                 {
                     continue;
                 }

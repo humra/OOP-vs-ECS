@@ -24,6 +24,7 @@ public class UnitAI : MonoBehaviour
     public bool inCombat = false;
     public bool readyForCombat = false;
     public IUnitManager unitManager;
+    public int laneIndex;
 
     private void Start()
     {
