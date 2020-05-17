@@ -128,7 +128,8 @@ public class UnitSpawner : MonoBehaviour
                 damage = UnitStats.damage,
                 engageRange = UnitStats.engageRange,
                 attackCooldown = UnitStats.attackCooldown,
-                inCombat = false
+                inCombat = false,
+                targetIndex = -1
             });
             
             CombatSystem.player1Entities.Add(entity);
@@ -163,7 +164,8 @@ public class UnitSpawner : MonoBehaviour
                 damage = UnitStats.damage,
                 engageRange = UnitStats.engageRange,
                 attackCooldown = UnitStats.attackCooldown,
-                inCombat = false
+                inCombat = false,
+                targetIndex = -1
             });
 
             CombatSystem.player2Entities.Add(entity);
@@ -221,7 +223,8 @@ public class UnitSpawner : MonoBehaviour
                         damage = UnitStats.damage,
                         engageRange = UnitStats.engageRange,
                         attackCooldown = UnitStats.attackCooldown,
-                        inCombat = false
+                        inCombat = false,
+                        targetIndex = -1
                     });
 
                     CombatSystem.player1Entities.Add(entity);
@@ -263,7 +266,8 @@ public class UnitSpawner : MonoBehaviour
                         damage = UnitStats.damage,
                         engageRange = UnitStats.engageRange,
                         attackCooldown = UnitStats.attackCooldown,
-                        inCombat = false
+                        inCombat = false,
+                        targetIndex = -1
                     });
 
                     CombatSystem.player2Entities.Add(entity);
