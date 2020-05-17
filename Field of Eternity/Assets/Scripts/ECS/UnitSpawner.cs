@@ -99,9 +99,11 @@ public class UnitSpawner : MonoBehaviour
         entityManager.CreateEntity(archetype_unit01, units01Array);
         entityManager.CreateEntity(archetype_unit02, units02Array);
 
+        Entity entity;
+
         for (int i = 0; i < player1SpawnPoints.Length; i++)
         {
-            Entity entity = units01Array[i];
+            entity = units01Array[i];
 
             entityManager.SetComponentData(entity, new Translation
             {
@@ -137,7 +139,7 @@ public class UnitSpawner : MonoBehaviour
 
         for (int i = 0; i < player2SpawnPoints.Length; i++)
         {
-            Entity entity = units02Array[i];
+            entity = units02Array[i];
 
             entityManager.SetComponentData(entity, new Translation
             {
@@ -191,6 +193,7 @@ public class UnitSpawner : MonoBehaviour
         entityManager.CreateEntity(archetype_unit02, units02Array);
 
         int currentIndex = 0;
+        Entity entity;
 
         for(int k = 0; k < player1SpawnPoints.Length; k++)
         {
@@ -198,7 +201,7 @@ public class UnitSpawner : MonoBehaviour
             {
                 for (int j = 0; j < root; j++)
                 {
-                    Entity entity = units01Array[currentIndex];
+                    entity = units01Array[currentIndex];
 
                     entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit01, material = material_unit01 });
                     entityManager.SetComponentData(entity, new MovementComponent { movementDirection = 1, movementSpeed = unitMovementSpeed });
@@ -241,7 +244,7 @@ public class UnitSpawner : MonoBehaviour
             {
                 for (int j = 0; j < root; j++)
                 {
-                    Entity entity = units02Array[currentIndex];
+                    entity = units02Array[currentIndex];
 
                     entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh_unit02, material = material_unit02 });
                     entityManager.SetComponentData(entity, new MovementComponent { movementDirection = -1, movementSpeed = unitMovementSpeed });
