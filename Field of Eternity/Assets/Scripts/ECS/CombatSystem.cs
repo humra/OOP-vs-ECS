@@ -34,13 +34,16 @@ public class CombatSystem : ComponentSystem
 
                 for(int j = 0; j < player2Entities.Count; j++)
                 {
-                    distance = math.distance(attackerPosition, entityManager.GetComponentData<Translation>(player2Entities[j]).Value);
-
-                    if(distance <= attackerStats.engageRange)
+                    if(attackerStats.laneIndex == entityManager.GetComponentData<CombatStatsComponent>(player2Entities[j]).laneIndex)
                     {
-                        attackerStats.inCombat = true;
-                        attackerStats.targetIndex = j;
-                        break;
+                        distance = math.distance(attackerPosition, entityManager.GetComponentData<Translation>(player2Entities[j]).Value);
+
+                        if (distance <= attackerStats.engageRange)
+                        {
+                            attackerStats.inCombat = true;
+                            attackerStats.targetIndex = j;
+                            break;
+                        }
                     }
                 }
             }
@@ -78,13 +81,16 @@ public class CombatSystem : ComponentSystem
 
                 for (int j = 0; j < player1Entities.Count; j++)
                 {
-                    distance = math.distance(attackerPosition, entityManager.GetComponentData<Translation>(player1Entities[j]).Value);
-
-                    if (distance <= attackerStats.engageRange)
+                    if (attackerStats.laneIndex == entityManager.GetComponentData<CombatStatsComponent>(player1Entities[j]).laneIndex)
                     {
-                        attackerStats.inCombat = true;
-                        attackerStats.targetIndex = j;
-                        break;
+                        distance = math.distance(attackerPosition, entityManager.GetComponentData<Translation>(player1Entities[j]).Value);
+
+                        if (distance <= attackerStats.engageRange)
+                        {
+                            attackerStats.inCombat = true;
+                            attackerStats.targetIndex = j;
+                            break;
+                        }
                     }
                 }
             }

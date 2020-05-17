@@ -132,7 +132,8 @@ public class UnitSpawner : MonoBehaviour
                 engageRange = UnitStats.engageRange,
                 attackCooldown = UnitStats.attackCooldown,
                 inCombat = false,
-                targetIndex = -1
+                targetIndex = -1,
+                laneIndex = i
             });
             
             CombatSystem.player1Entities.Add(entity);
@@ -168,7 +169,8 @@ public class UnitSpawner : MonoBehaviour
                 engageRange = UnitStats.engageRange,
                 attackCooldown = UnitStats.attackCooldown,
                 inCombat = false,
-                targetIndex = -1
+                targetIndex = -1,
+                laneIndex = i
             });
 
             CombatSystem.player2Entities.Add(entity);
@@ -228,7 +230,8 @@ public class UnitSpawner : MonoBehaviour
                         engageRange = UnitStats.engageRange,
                         attackCooldown = UnitStats.attackCooldown,
                         inCombat = false,
-                        targetIndex = -1
+                        targetIndex = -1,
+                        laneIndex = k
                     });
 
                     CombatSystem.player1Entities.Add(entity);
@@ -271,7 +274,8 @@ public class UnitSpawner : MonoBehaviour
                         engageRange = UnitStats.engageRange,
                         attackCooldown = UnitStats.attackCooldown,
                         inCombat = false,
-                        targetIndex = -1
+                        targetIndex = -1,
+                        laneIndex = k
                     });
 
                     CombatSystem.player2Entities.Add(entity);
