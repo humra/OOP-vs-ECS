@@ -47,7 +47,7 @@ public class UnitSpawner : MonoBehaviour
 
         CheckForUnassignedComponents();
         CreateArchtypes();
-        spawnTimer = 1;
+        spawnTimer = spawnCooldown;
         maxWave = spawnsInWave.Length - 1;
         currentSpawnInWave = 1;
     }
@@ -128,8 +128,7 @@ public class UnitSpawner : MonoBehaviour
                 damage = UnitStats.damage,
                 engageRange = UnitStats.engageRange,
                 attackCooldown = UnitStats.attackCooldown,
-                inCombat = false,
-                team = 1
+                inCombat = false
             });
             
             CombatSystem.player1Entities.Add(entity);
@@ -164,8 +163,7 @@ public class UnitSpawner : MonoBehaviour
                 damage = UnitStats.damage,
                 engageRange = UnitStats.engageRange,
                 attackCooldown = UnitStats.attackCooldown,
-                inCombat = false,
-                team = 2
+                inCombat = false
             });
 
             CombatSystem.player2Entities.Add(entity);
@@ -223,8 +221,7 @@ public class UnitSpawner : MonoBehaviour
                         damage = UnitStats.damage,
                         engageRange = UnitStats.engageRange,
                         attackCooldown = UnitStats.attackCooldown,
-                        inCombat = false,
-                        team = 1
+                        inCombat = false
                     });
 
                     CombatSystem.player1Entities.Add(entity);
@@ -266,8 +263,7 @@ public class UnitSpawner : MonoBehaviour
                         damage = UnitStats.damage,
                         engageRange = UnitStats.engageRange,
                         attackCooldown = UnitStats.attackCooldown,
-                        inCombat = false,
-                        team = 2
+                        inCombat = false
                     });
 
                     CombatSystem.player2Entities.Add(entity);

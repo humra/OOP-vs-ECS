@@ -7,5 +7,4 @@ public struct CombatStatsComponent : IComponentData
     public float attackCooldown;
     public float engageRange;
     public bool inCombat;
-    public int team;
 }
