@@ -23,18 +23,18 @@ public class CombatSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        for(int i = 0; i < player1Entities.Count; i++)
+        for (int i = 0; i < player1Entities.Count; i++)
         {
             attackerStats = entityManager.GetComponentData<CombatStatsComponent>(player1Entities[i]);
             attackerStats.attackCooldown -= Time.DeltaTime;
 
-            if(!attackerStats.inCombat)
+            if (!attackerStats.inCombat)
             {
                 attackerPosition = entityManager.GetComponentData<Translation>(player1Entities[i]).Value;
 
-                for(int j = 0; j < player2Entities.Count; j++)
+                for (int j = 0; j < player2Entities.Count; j++)
                 {
-                    if(attackerStats.laneIndex == entityManager.GetComponentData<CombatStatsComponent>(player2Entities[j]).laneIndex)
+                    if (attackerStats.laneIndex == entityManager.GetComponentData<CombatStatsComponent>(player2Entities[j]).laneIndex)
                     {
                         distance = math.distance(attackerPosition, entityManager.GetComponentData<Translation>(player2Entities[j]).Value);
 
@@ -47,24 +47,22 @@ public class CombatSystem : ComponentSystem
                     }
                 }
             }
-            else
+            else if (attackerStats.attackCooldown <= 0)
             {
-                if(attackerStats.attackCooldown <= 0)
-                {
-                    defenderStats = entityManager.GetComponentData<CombatStatsComponent>(player2Entities[attackerStats.targetIndex]);
-                    defenderStats.health -= attackerStats.damage;
-                    attackerStats.attackCooldown = UnitStats.attackCooldown;
+                defenderStats = entityManager.GetComponentData<CombatStatsComponent>(player2Entities[attackerStats.targetIndex]);
+                defenderStats.health -= attackerStats.damage;
+                attackerStats.attackCooldown = UnitStats.attackCooldown;
 
-                    if(defenderStats.health <= 0)
-                    {
-                        attackerStats.inCombat = false;
-                        toBeDestroyed.Add(player2Entities[attackerStats.targetIndex]);
-                    }
-                    else
-                    {
-                        entityManager.SetComponentData(player2Entities[attackerStats.targetIndex], defenderStats);
-                    }
+                if (defenderStats.health <= 0)
+                {
+                    attackerStats.inCombat = false;
+                    toBeDestroyed.Add(player2Entities[attackerStats.targetIndex]);
                 }
+                else
+                {
+                    entityManager.SetComponentData(player2Entities[attackerStats.targetIndex], defenderStats);
+                }
+
             }
 
             entityManager.SetComponentData(player1Entities[i], attackerStats);
@@ -94,24 +92,22 @@ public class CombatSystem : ComponentSystem
                     }
                 }
             }
-            else
+            else if (attackerStats.attackCooldown <= 0)
             {
-                if (attackerStats.attackCooldown <= 0)
-                {
-                    defenderStats = entityManager.GetComponentData<CombatStatsComponent>(player1Entities[attackerStats.targetIndex]);
-                    defenderStats.health -= attackerStats.damage;
-                    attackerStats.attackCooldown = UnitStats.attackCooldown;
+                defenderStats = entityManager.GetComponentData<CombatStatsComponent>(player1Entities[attackerStats.targetIndex]);
+                defenderStats.health -= attackerStats.damage;
+                attackerStats.attackCooldown = UnitStats.attackCooldown;
 
-                    if (defenderStats.health <= 0)
-                    {
-                        attackerStats.inCombat = false;
-                        toBeDestroyed.Add(player1Entities[attackerStats.targetIndex]);
-                    }
-                    else
-                    {
-                        entityManager.SetComponentData(player1Entities[attackerStats.targetIndex], defenderStats);
-                    }
+                if (defenderStats.health <= 0)
+                {
+                    attackerStats.inCombat = false;
+                    toBeDestroyed.Add(player1Entities[attackerStats.targetIndex]);
                 }
+                else
+                {
+                    entityManager.SetComponentData(player1Entities[attackerStats.targetIndex], defenderStats);
+                }
+
             }
 
             entityManager.SetComponentData(player2Entities[i], attackerStats);
