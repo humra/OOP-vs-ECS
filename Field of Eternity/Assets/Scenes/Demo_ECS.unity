@@ -158,7 +158,7 @@ MonoBehaviour:
   spawnCooldown: 5
   unitMovementSpeed: 3
   wavesBeforeIncrement: 5
-  spawnsInWave: 01000000090000001900000064000000
+  spawnsInWave: 0100000009000000
   player1SpawnPoints:
   - {fileID: 1602115841}
   - {fileID: 553218316}

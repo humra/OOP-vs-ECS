@@ -8,5 +8,8 @@ public struct CombatStatsComponent : IComponentData
     public float engageRange;
     public bool inCombat;
     public int targetIndex;
+    public int targetVersion;
     public int laneIndex;
+    public int team;
+    public bool toDestroy;
 }

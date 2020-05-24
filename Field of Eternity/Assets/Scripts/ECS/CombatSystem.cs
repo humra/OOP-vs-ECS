@@ -1,132 +1,81 @@
-﻿using System.Collections.Generic;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
 public class CombatSystem : ComponentSystem
 {
-    public static List<Entity> player1Entities = new List<Entity>();
-    public static List<Entity> player2Entities = new List<Entity>();
-
     private EntityManager entityManager;
-    private List<Entity> toBeDestroyed = new List<Entity>();
-
-    private CombatStatsComponent attackerStats;
-    private CombatStatsComponent defenderStats;
-    private float3 attackerPosition;
     private float distance;
+    private CombatStatsComponent attackerStatsTemp;
+    private Translation attackerTranslationTemp;
+    private float timestamp;
 
     protected override void OnCreate()
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        timestamp = 1f;
     }
 
     protected override void OnUpdate()
     {
-        for (int i = 0; i < player1Entities.Count; i++)
+        if(timestamp <= 0)
         {
-            attackerStats = entityManager.GetComponentData<CombatStatsComponent>(player1Entities[i]);
-            attackerStats.attackCooldown -= Time.DeltaTime;
-
-            if (!attackerStats.inCombat)
+            Entities.WithAll<CombatStatsComponent, Translation>().ForEach((Entity attackerEntity, ref CombatStatsComponent attackerStats, ref Translation attackerTranslation) =>
             {
-                attackerPosition = entityManager.GetComponentData<Translation>(player1Entities[i]).Value;
+                attackerStats.attackCooldown -= Time.DeltaTime;
 
-                for (int j = 0; j < player2Entities.Count; j++)
+                attackerStatsTemp = attackerStats;
+                attackerTranslationTemp = attackerTranslation;
+
+                if (!attackerStatsTemp.inCombat)
                 {
-                    if (attackerStats.laneIndex == entityManager.GetComponentData<CombatStatsComponent>(player2Entities[j]).laneIndex)
+                    Entities.WithAll<CombatStatsComponent>().ForEach((Entity defenderEntity, ref CombatStatsComponent defenderStats) =>
                     {
-                        distance = math.distance(attackerPosition, entityManager.GetComponentData<Translation>(player2Entities[j]).Value);
-
-                        if (distance <= attackerStats.engageRange)
+                        if ((defenderStats.laneIndex == attackerStatsTemp.laneIndex) && (defenderStats.team != attackerStatsTemp.team))
                         {
-                            attackerStats.inCombat = true;
-                            attackerStats.targetIndex = j;
-                            break;
+                            distance = math.distance(attackerTranslationTemp.Value, entityManager.GetComponentData<Translation>(defenderEntity).Value);
+
+                            if (distance <= attackerStatsTemp.engageRange)
+                            {
+                                attackerStatsTemp.targetIndex = defenderEntity.Index;
+                                attackerStatsTemp.targetVersion = defenderEntity.Version;
+                                attackerStatsTemp.inCombat = true;
+                            }
                         }
-                    }
+                    });
                 }
-            }
-            else if (attackerStats.attackCooldown <= 0)
-            {
-                defenderStats = entityManager.GetComponentData<CombatStatsComponent>(player2Entities[attackerStats.targetIndex]);
-                defenderStats.health -= attackerStats.damage;
-                attackerStats.attackCooldown = UnitStats.attackCooldown;
-
-                if (defenderStats.health <= 0)
+                else if (attackerStatsTemp.attackCooldown <= 0)
                 {
-                    attackerStats.inCombat = false;
-                    toBeDestroyed.Add(player2Entities[attackerStats.targetIndex]);
-                }
-                else
-                {
-                    entityManager.SetComponentData(player2Entities[attackerStats.targetIndex], defenderStats);
-                }
+                    attackerStatsTemp.attackCooldown = UnitStats.attackCooldown;
 
-            }
-
-            entityManager.SetComponentData(player1Entities[i], attackerStats);
-        }
-
-        for (int i = 0; i < player2Entities.Count; i++)
-        {
-            attackerStats = entityManager.GetComponentData<CombatStatsComponent>(player2Entities[i]);
-            attackerStats.attackCooldown -= Time.DeltaTime;
-
-            if (!attackerStats.inCombat)
-            {
-                attackerPosition = entityManager.GetComponentData<Translation>(player2Entities[i]).Value;
-
-                for (int j = 0; j < player1Entities.Count; j++)
-                {
-                    if (attackerStats.laneIndex == entityManager.GetComponentData<CombatStatsComponent>(player1Entities[j]).laneIndex)
+                    Entities.WithAll<CombatStatsComponent>().ForEach((Entity defenderEntity, ref CombatStatsComponent defenderStats) =>
                     {
-                        distance = math.distance(attackerPosition, entityManager.GetComponentData<Translation>(player1Entities[j]).Value);
-
-                        if (distance <= attackerStats.engageRange)
+                        if (defenderEntity.Index == attackerStatsTemp.targetIndex && defenderEntity.Version == attackerStatsTemp.targetVersion)
                         {
-                            attackerStats.inCombat = true;
-                            attackerStats.targetIndex = j;
-                            break;
+                            defenderStats.health -= attackerStatsTemp.damage;
+
+                            if (defenderStats.health <= 0)
+                            {
+                                attackerStatsTemp.inCombat = false;
+                                defenderStats.toDestroy = true;
+                            }
                         }
-                    }
+                    });
                 }
-            }
-            else if (attackerStats.attackCooldown <= 0)
-            {
-                defenderStats = entityManager.GetComponentData<CombatStatsComponent>(player1Entities[attackerStats.targetIndex]);
-                defenderStats.health -= attackerStats.damage;
-                attackerStats.attackCooldown = UnitStats.attackCooldown;
 
-                if (defenderStats.health <= 0)
+                attackerStats = attackerStatsTemp;
+
+                if (attackerStats.toDestroy)
                 {
-                    attackerStats.inCombat = false;
-                    toBeDestroyed.Add(player1Entities[attackerStats.targetIndex]);
+                    entityManager.DestroyEntity(attackerEntity);
                 }
-                else
-                {
-                    entityManager.SetComponentData(player1Entities[attackerStats.targetIndex], defenderStats);
-                }
+            });
 
-            }
-
-            entityManager.SetComponentData(player2Entities[i], attackerStats);
+            timestamp = 1f;
         }
-
-        for (int i = toBeDestroyed.Count - 1; i >= 0; i--)
+        else
         {
-            if (player1Entities.Contains(toBeDestroyed[i]))
-            {
-                player1Entities.Remove(toBeDestroyed[i]);
-            }
-            else if (player2Entities.Contains(toBeDestroyed[i]))
-            {
-                player2Entities.Remove(toBeDestroyed[i]);
-            }
-
-            entityManager.DestroyEntity(toBeDestroyed[i]);
+            timestamp -= Time.DeltaTime;
         }
-
-        toBeDestroyed.Clear();
     }
 }

@@ -62,9 +62,6 @@ public class PauseUISystem : MonoBehaviour
 
     private void ClearEntities()
     {
-        CombatSystem.player1Entities.Clear();
-        CombatSystem.player2Entities.Clear();
-
         NativeArray<Entity> entities = entityManager.GetAllEntities();
 
         for (int i = entities.Length - 1; i >= 0; i--)

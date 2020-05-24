@@ -179,13 +179,9 @@ MonoBehaviour:
   spawnableUnits:
   - {fileID: 1807896483295724, guid: dd5cc5afc7a95424ba3a817d78c1642f, type: 3}
   - {fileID: 3620282766420433663, guid: 6ee5023bea29007428b0d85199606e01, type: 3}
-  - {fileID: 5236945006423626326, guid: 8bb8a0efcd80685418e60c36d02888fe, type: 3}
-  - {fileID: 5776367808979253731, guid: 9fda63c1ed672454b9f62e5e4a92a1db, type: 3}
   spawnableComputerUnits:
   - {fileID: 1061446862257190225, guid: 98e88f1a6c1bb794db237562c45c857d, type: 3}
   - {fileID: 5702235364454849055, guid: f3e6aa496b4ab0c45bc588e2ebab419c, type: 3}
-  - {fileID: 4200874380444621653, guid: 1476e4c402f708e43afa105241a2f91f, type: 3}
-  - {fileID: 5551289121214991568, guid: 25f6fc63ebd09d14aaf52a7d5ae033cb, type: 3}
 --- !u!114 &58938976
 MonoBehaviour:
   m_ObjectHideFlags: 0

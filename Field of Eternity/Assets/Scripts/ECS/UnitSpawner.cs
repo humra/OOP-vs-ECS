@@ -133,10 +133,11 @@ public class UnitSpawner : MonoBehaviour
                 attackCooldown = UnitStats.attackCooldown,
                 inCombat = false,
                 targetIndex = -1,
-                laneIndex = i
+                laneIndex = i,
+                team = 1,
+                targetVersion = -1,
+                toDestroy = false
             });
-            
-            CombatSystem.player1Entities.Add(entity);
         }
 
         for (int i = 0; i < player2SpawnPoints.Length; i++)
@@ -170,10 +171,11 @@ public class UnitSpawner : MonoBehaviour
                 attackCooldown = UnitStats.attackCooldown,
                 inCombat = false,
                 targetIndex = -1,
-                laneIndex = i
+                laneIndex = i,
+                team = 2,
+                targetVersion = -1,
+                toDestroy = false
             });
-
-            CombatSystem.player2Entities.Add(entity);
         }
 
         units01Array.Dispose();
@@ -231,10 +233,12 @@ public class UnitSpawner : MonoBehaviour
                         attackCooldown = UnitStats.attackCooldown,
                         inCombat = false,
                         targetIndex = -1,
-                        laneIndex = k
+                        laneIndex = k,
+                        team = 1,
+                        targetVersion = -1,
+                        toDestroy = false
                     });
 
-                    CombatSystem.player1Entities.Add(entity);
                     currentIndex++;
                 }
             }
@@ -275,10 +279,12 @@ public class UnitSpawner : MonoBehaviour
                         attackCooldown = UnitStats.attackCooldown,
                         inCombat = false,
                         targetIndex = -1,
-                        laneIndex = k
+                        laneIndex = k,
+                        team = 2,
+                        targetVersion = -1,
+                        toDestroy = false
                     });
 
-                    CombatSystem.player2Entities.Add(entity);
                     currentIndex++;
                 }
             }
