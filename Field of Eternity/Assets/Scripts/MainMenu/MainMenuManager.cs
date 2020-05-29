@@ -13,13 +13,41 @@ public class MainMenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void Demo_OOP()
+    public void OOP(int intensity)
     {
-        SceneManager.LoadScene("Demo_OOP");
+        switch(intensity)
+        {
+            case 1:
+                SceneManager.LoadScene("Demo_OOP_LowIntensity");
+                break;
+            case 2:
+                SceneManager.LoadScene("Demo_OOP_MediumIntensity");
+                break;
+            case 3:
+                SceneManager.LoadScene("Demo_OOP_HighIntensity");
+                break;
+            case 4:
+                SceneManager.LoadScene("Demo_OOP_ExtremeIntensity");
+                break;
+        }
     }
 
-    public void Demo_ECS()
+    public void ECS(int intensity)
     {
-        SceneManager.LoadScene("Demo_ECS");
+        switch (intensity)
+        {
+            case 1:
+                SceneManager.LoadScene("Demo_ECS_LowIntensity");
+                break;
+            case 2:
+                SceneManager.LoadScene("Demo_ECS_MediumIntensity");
+                break;
+            case 3:
+                SceneManager.LoadScene("Demo_ECS_HighIntensity");
+                break;
+            case 4:
+                SceneManager.LoadScene("Demo_ECS_ExtremeIntensity");
+                break;
+        }
     }
 }

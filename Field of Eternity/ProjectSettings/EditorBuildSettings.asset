@@ -15,6 +15,24 @@ EditorBuildSettings:
     path: Assets/Scenes/Demo_OOP_ExtremeIntensity.unity
     guid: 73c8e973aed60d64db585415cc53b899
   - enabled: 1
+    path: Assets/Scenes/Demo_OOP_HighIntensity.unity
+    guid: 2281d24acb9707740b820bae4183ef42
+  - enabled: 1
+    path: Assets/Scenes/Demo_OOP_LowIntensity.unity
+    guid: 460334e133414c3459d9167f37b081a5
+  - enabled: 1
+    path: Assets/Scenes/Demo_OOP_MediumIntensity.unity
+    guid: c07696da373558a4b9df9816d5224a3a
+  - enabled: 1
     path: Assets/Scenes/Demo_ECS_ExtremeIntensity.unity
     guid: 6ddf84ed487847b4a8ff42b8106767e1
+  - enabled: 1
+    path: Assets/Scenes/Demo_ECS_HighIntensity.unity
+    guid: 90120f8b4b819a94aa876c7390bd05fe
+  - enabled: 1
+    path: Assets/Scenes/Demo_ECS_LowIntensity.unity
+    guid: 21b73581cfee9814e82f48a8886c48d4
+  - enabled: 1
+    path: Assets/Scenes/Demo_ECS_MediumIntensity.unity
+    guid: 31a8bec22d300744286036944b63b931
   m_configObjects: {}
