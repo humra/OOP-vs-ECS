@@ -12,9 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Playable.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Demo_OOP.unity
+    path: Assets/Scenes/Demo_OOP_ExtremeIntensity.unity
     guid: 73c8e973aed60d64db585415cc53b899
   - enabled: 1
-    path: Assets/Scenes/Demo_ECS.unity
+    path: Assets/Scenes/Demo_ECS_ExtremeIntensity.unity
     guid: 6ddf84ed487847b4a8ff42b8106767e1
   m_configObjects: {}

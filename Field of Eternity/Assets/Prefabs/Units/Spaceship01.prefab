@@ -152,9 +152,10 @@ MonoBehaviour:
   damage: 1
   engageRange: 10
   attackSpeed: 1
-  combatReadyCooldown: 15
+  combatReadyCooldown: 10
   inCombat: 0
   readyForCombat: 0
+  laneIndex: 0
 --- !u!54 &4864430592513464408
 Rigidbody:
   m_ObjectHideFlags: 0

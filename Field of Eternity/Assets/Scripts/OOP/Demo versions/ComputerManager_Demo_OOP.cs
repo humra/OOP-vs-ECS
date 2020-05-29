@@ -14,7 +14,7 @@ public class ComputerManager_Demo_OOP : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("SpawnUnits", 3f, spawnInterval);
+        InvokeRepeating("SpawnUnits", 1f, spawnInterval);
     }
 
     private void SpawnUnits()

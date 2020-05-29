@@ -554,6 +554,21 @@
         3,
         6
       ]
+    },
+    {
+      "FullName": "System.Void Unity.Entities.JobChunkExtensions/JobChunkProducer`1<Unity.Entities.GatherEntitiesJob>::Execute(Unity.Entities.JobChunkExtensions/JobChunkWrapper`1<T>&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
+      "ModuleOptionsHash": 8794384452606821980,
+      "ModuleHash": "b753bd0103d03ad333e4db054d14ebd6",
+      "LinkName": "90AC1F4498492A4F",
+      "AssemblyDependencyIndices": [
+        3,
+        1,
+        2,
+        5,
+        6,
+        4,
+        7
+      ]
     }
   ]
 }

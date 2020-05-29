@@ -1,6 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 public class CombatSystem : ComponentSystem
 {
@@ -18,12 +19,15 @@ public class CombatSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
+        Entities.WithAll<CombatStatsComponent>().ForEach((ref CombatStatsComponent combatStats) =>
+        {
+            combatStats.attackCooldown -= Time.DeltaTime;
+        });
+
         if(timestamp <= 0)
         {
             Entities.WithAll<CombatStatsComponent, Translation>().ForEach((Entity attackerEntity, ref CombatStatsComponent attackerStats, ref Translation attackerTranslation) =>
             {
-                attackerStats.attackCooldown -= Time.DeltaTime;
-
                 attackerStatsTemp = attackerStats;
                 attackerTranslationTemp = attackerTranslation;
 
@@ -67,6 +71,7 @@ public class CombatSystem : ComponentSystem
 
                 if (attackerStats.toDestroy)
                 {
+                    Debug.Log("Destroyed");
                     entityManager.DestroyEntity(attackerEntity);
                 }
             });

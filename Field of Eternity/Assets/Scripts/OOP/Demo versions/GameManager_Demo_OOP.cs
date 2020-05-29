@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager_Demo_OOP : MonoBehaviour, ISpawnManager, IPauseMenuManager, IComputerManagerDemo, IUnitManager
 {
+    [SerializeField]
+    private bool multiple = false;
+
     private Spawner_Demo_OOP spawner;
     private UIManager_Demo_OOP uiManager;
     private ComputerManager_Demo_OOP computerManager;
@@ -77,8 +80,8 @@ public class GameManager_Demo_OOP : MonoBehaviour, ISpawnManager, IPauseMenuMana
     {
         for(int i = 0; i < 3; i++)
         {
-            spawner.SpawnUnitPlayer(i, spawnUnitIndex);
-            spawner.SpawnUnitComputer(i, spawnUnitIndex);
+            spawner.SpawnUnitPlayer(i, spawnUnitIndex, multiple);
+            spawner.SpawnUnitComputer(i, spawnUnitIndex, multiple);
         }
     }
 

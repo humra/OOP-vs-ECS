@@ -47,7 +47,7 @@ public class UnitSpawner : MonoBehaviour
 
         CheckForUnassignedComponents();
         CreateArchtypes();
-        spawnTimer = spawnCooldown;
+        spawnTimer = 3f;
         maxWave = spawnsInWave.Length - 1;
         currentSpawnInWave = 1;
         Time.timeScale = 1f;
@@ -213,7 +213,7 @@ public class UnitSpawner : MonoBehaviour
                     entityManager.SetComponentData(entity, new Translation
                     {
                         Value =
-                        new float3(player1SpawnPoints[k].position.x + (i * 4), player1SpawnPoints[k].position.y + 0.5f, player1SpawnPoints[k].position.z + (j * 4))
+                        new float3(player1SpawnPoints[k].position.x + (i * 5), player1SpawnPoints[k].position.y + 0.5f, player1SpawnPoints[k].position.z + (j * 5))
                     });
                     entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(-90, 90, 0) });
                     entityManager.SetComponentData(entity, new CollisionComponent
@@ -259,7 +259,7 @@ public class UnitSpawner : MonoBehaviour
                     entityManager.SetComponentData(entity, new Translation
                     {
                         Value =
-                        new float3(player2SpawnPoints[k].position.x + (i * 4), player2SpawnPoints[k].position.y + 0.5f, player2SpawnPoints[k].position.z + (j * 4))
+                        new float3(player2SpawnPoints[k].position.x + (i * 5), player2SpawnPoints[k].position.y + 0.5f, player2SpawnPoints[k].position.z + (j * 5))
                     });
                     entityManager.SetComponentData(entity, new Rotation { Value = Quaternion.Euler(90, 90, 0) } );
                     entityManager.SetComponentData(entity, new CollisionComponent
