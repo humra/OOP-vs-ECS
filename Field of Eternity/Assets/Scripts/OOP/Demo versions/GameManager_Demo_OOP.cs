@@ -66,11 +66,6 @@ public class GameManager_Demo_OOP : MonoBehaviour, ISpawnManager, IPauseMenuMana
         }
     }
 
-    public void SpawnComputerUnit(int laneIndex, int spawnableUnitIndex)
-    {
-        spawner.SpawnUnitComputer(laneIndex, spawnableUnitIndex);
-    }
-
     public void StopTrackingUnit(UnitAI unit)
     {
         playerUnits.Remove(unit);

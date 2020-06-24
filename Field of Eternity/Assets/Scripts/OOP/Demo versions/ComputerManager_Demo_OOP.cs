@@ -9,7 +9,6 @@ public class ComputerManager_Demo_OOP : MonoBehaviour
 
     private int currentSpawnIndex = 0;
     private int spawnCounter = 0;
-
     private IComputerManagerDemo computerManager;
 
     private void Start()
