@@ -7,7 +7,7 @@ public class UnitAI : MonoBehaviour
     private Transform target;
     private bool playerOwned;
     private bool groupMember = false;
-    private bool dead = false;
+    private bool isDead = false;
     private UnitAI targetEnemy;
 
     [SerializeField]
@@ -43,7 +43,7 @@ public class UnitAI : MonoBehaviour
 
     private void Update()
     {
-        if(dead)
+        if(isDead)
         {
             HandleGroupMemberDestroy();
             unitManager.StopTrackingUnit(this);
@@ -60,6 +60,8 @@ public class UnitAI : MonoBehaviour
             }
         }
     }
+
+    #region GetSet
 
     public void SetTarget(Transform target)
     {
@@ -86,6 +88,8 @@ public class UnitAI : MonoBehaviour
         return engageRange;
     }
 
+    #endregion
+
     public void EngageTarget(UnitAI enemyUnit)
     {
         inCombat = true;
@@ -111,10 +115,10 @@ public class UnitAI : MonoBehaviour
         health -= damageToTake;
         if(health <= 0)
         {
-            dead = true;
+            isDead = true;
         }
 
-        return dead;
+        return isDead;
     }
 
     private void WalkToTarget()
