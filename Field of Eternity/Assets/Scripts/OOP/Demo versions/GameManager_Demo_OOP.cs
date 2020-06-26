@@ -126,13 +126,9 @@ public class GameManager_Demo_OOP : MonoBehaviour, ISpawnManager, IPauseMenuMana
 
     private void CheckForCombatEngagement()
     {
-        if (playerUnits.Count > 0)
+        if (playerUnits.Count > 0 && computerUnits.Count > 0)
         {
             EngagePlayerUnits();
-        }
-
-        if (computerUnits.Count > 0)
-        {
             EngageComputerUnits();
         }
 
@@ -164,6 +160,7 @@ public class GameManager_Demo_OOP : MonoBehaviour, ISpawnManager, IPauseMenuMana
                 if ((Vector3.Distance(unitPosition, computerUnits[j].transform.position) <= engageRange))
                 {
                     playerUnits[i].EngageTarget(computerUnits[j]);
+                    break;
                 }
             }
         }
@@ -191,6 +188,7 @@ public class GameManager_Demo_OOP : MonoBehaviour, ISpawnManager, IPauseMenuMana
                 if ((Vector3.Distance(unitPosition, playerUnits[j].transform.position) <= engageRange))
                 {
                     computerUnits[i].EngageTarget(playerUnits[j]);
+                    break;
                 }
             }
         }
