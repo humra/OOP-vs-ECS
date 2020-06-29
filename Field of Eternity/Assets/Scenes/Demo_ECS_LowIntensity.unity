@@ -944,3 +944,72 @@ BoxCollider:
     type: 3}
   m_PrefabInstance: {fileID: 562284441}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1965009303
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.849878
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 50.024765
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 282.04556
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636689, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079495720648636695, guid: b5b09893d009f8b4e881bf8ae622aa36,
+        type: 3}
+      propertyPath: m_Name
+      value: AverageFPSCalculator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b5b09893d009f8b4e881bf8ae622aa36, type: 3}

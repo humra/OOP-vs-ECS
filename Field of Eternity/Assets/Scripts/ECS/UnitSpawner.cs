@@ -105,7 +105,7 @@ public class UnitSpawner : MonoBehaviour
         for (int i = 0; i < player1SpawnPoints.Length; i++)
         {
             entity = units01Array[i];
-
+            
             entityManager.SetComponentData(entity, new Translation
             {
                 Value =

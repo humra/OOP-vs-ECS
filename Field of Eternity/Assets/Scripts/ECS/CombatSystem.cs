@@ -37,13 +37,16 @@ public class CombatSystem : ComponentSystem
                     {
                         if ((defenderStats.laneIndex == attackerStatsTemp.laneIndex) && (defenderStats.team != attackerStatsTemp.team))
                         {
-                            distance = math.distance(attackerTranslationTemp.Value, entityManager.GetComponentData<Translation>(defenderEntity).Value);
-
-                            if (distance <= attackerStatsTemp.engageRange)
+                            if(!attackerStatsTemp.inCombat)
                             {
-                                attackerStatsTemp.targetIndex = defenderEntity.Index;
-                                attackerStatsTemp.targetVersion = defenderEntity.Version;
-                                attackerStatsTemp.inCombat = true;
+                                distance = math.distance(attackerTranslationTemp.Value, entityManager.GetComponentData<Translation>(defenderEntity).Value);
+
+                                if (distance <= attackerStatsTemp.engageRange)
+                                {
+                                    attackerStatsTemp.targetIndex = defenderEntity.Index;
+                                    attackerStatsTemp.targetVersion = defenderEntity.Version;
+                                    attackerStatsTemp.inCombat = true;
+                                }
                             }
                         }
                     });
@@ -71,7 +74,7 @@ public class CombatSystem : ComponentSystem
 
                 if (attackerStats.toDestroy)
                 {
-                    Debug.Log("Destroyed");
+                    //Debug.Log("Destroyed");
                     entityManager.DestroyEntity(attackerEntity);
                 }
             });

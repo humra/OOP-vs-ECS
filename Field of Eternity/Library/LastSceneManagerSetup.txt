@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Demo_OOP_MediumIntensity.unity
+- path: Assets/Scenes/Demo_ECS_HighIntensity.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

@@ -14,7 +14,7 @@ public class CollisionSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        Entities.ForEach((Entity entity, ref CollisionComponent collisionComponent, ref Translation translation) =>
+        Entities.WithAll<CollisionComponent, Translation>().ForEach((Entity entity, ref CollisionComponent collisionComponent, ref Translation translation) =>
         {
             if(collisionComponent.minX <= translation.Value.x && translation.Value.x <= collisionComponent.maxX
             && collisionComponent.minY <= translation.Value.y && translation.Value.y <= collisionComponent.maxY
