@@ -10,6 +10,7 @@ public class CombatSystem : ComponentSystem
     private CombatStatsComponent attackerStatsTemp;
     private Translation attackerTranslationTemp;
     private float timestamp;
+    private bool targetStillExists;
 
     protected override void OnCreate()
     {
@@ -68,6 +69,21 @@ public class CombatSystem : ComponentSystem
                             }
                         }
                     });
+                }
+
+                targetStillExists = false;
+
+                Entities.WithAll<CombatStatsComponent>().ForEach((Entity entity) =>
+                {
+                    if(entity.Version == attackerStatsTemp.targetVersion && entity.Index == attackerStatsTemp.targetIndex)
+                    {
+                        targetStillExists = true;
+                    }
+                });
+
+                if(!targetStillExists)
+                {
+                    attackerStatsTemp.inCombat = false;
                 }
 
                 attackerStats = attackerStatsTemp;

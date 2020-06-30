@@ -826,9 +826,9 @@ MonoBehaviour:
   panSpeed: 30
   panBorderThickness: 10
   panClampLimit: {x: 200, y: 200}
-  scrollSpeed: 30
+  scrollSpeed: 20
   minY: 10
-  maxY: 100
+  maxY: 150
   mouseCameraPan: 0
 --- !u!65 &1124173494 stripped
 BoxCollider:
@@ -932,7 +932,7 @@ PrefabInstance:
     - target: {fileID: 4345859531174132053, guid: 9edb9a9c1d82a0a46adce90c5bd47593,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -80
+      value: -85
       objectReference: {fileID: 0}
     - target: {fileID: 4345859531669969112, guid: 9edb9a9c1d82a0a46adce90c5bd47593,
         type: 3}

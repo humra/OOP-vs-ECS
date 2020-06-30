@@ -3,7 +3,15 @@
 public class AverageFPSCalculator : MonoBehaviour
 {
     private float averageFPS;
-    private float timestamp = 1f;
+    private float timestamp;
+
+    [SerializeField]
+    private float interval = 5f;
+
+    private void Start()
+    {
+        timestamp = interval;
+    }
 
     private void Update()
     {
@@ -13,7 +21,7 @@ public class AverageFPSCalculator : MonoBehaviour
         if(timestamp <= 0)
         {
             Debug.Log("Average FPS: " + averageFPS);
-            timestamp = 5f;
+            timestamp = interval;
         }
     }
 }

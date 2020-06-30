@@ -826,9 +826,9 @@ MonoBehaviour:
   panSpeed: 30
   panBorderThickness: 10
   panClampLimit: {x: 200, y: 200}
-  scrollSpeed: 30
+  scrollSpeed: 20
   minY: 10
-  maxY: 100
+  maxY: 150
   mouseCameraPan: 0
 --- !u!65 &1124173494 stripped
 BoxCollider:
