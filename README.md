@@ -1,3 +1,3 @@
-# Field of Eternity
+# Comparison of performance between OOP and ECS developed games
 
-A brief demo used to test performance difference between OOP and ECS approach in Unity.
+An RTS game used to showcase the difference between the performance of OOP and ECS approaches when devleoping video games in Unity.
